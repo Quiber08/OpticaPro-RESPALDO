@@ -1,0 +1,433 @@
+<Window
+    x:Class="OpticaPro.Views.ClinicalExamPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Title="Gestión Clínica Profesional">
+
+    <Grid Background="#F3F4F6">
+        <Grid.Resources>
+            <SolidColorBrush x:Key="PrimaryBlue" Color="#1565C0"/>
+            <SolidColorBrush x:Key="SecondaryTeal" Color="#00695C"/>
+            <SolidColorBrush x:Key="AlertRed" Color="#C62828"/>
+            <SolidColorBrush x:Key="TextDark" Color="#263238"/>
+            <SolidColorBrush x:Key="TextLight" Color="#546E7A"/>
+            <SolidColorBrush x:Key="SurfaceWhite" Color="#FFFFFF"/>
+            <SolidColorBrush x:Key="BorderColor" Color="#CFD8DC"/>
+
+            <Style x:Key="SectionHeaderStyle" TargetType="TextBlock">
+                <Setter Property="FontSize" Value="15"/>
+                <Setter Property="FontWeight" Value="Bold"/>
+                <Setter Property="Foreground" Value="{StaticResource PrimaryBlue}"/>
+                <Setter Property="Margin" Value="0,0,0,10"/>
+            </Style>
+
+            <Style x:Key="SubHeaderStyle" TargetType="TextBlock">
+                <Setter Property="FontSize" Value="13"/>
+                <Setter Property="FontWeight" Value="SemiBold"/>
+                <Setter Property="Foreground" Value="{StaticResource TextLight}"/>
+                <Setter Property="Margin" Value="0,10,0,5"/>
+            </Style>
+
+            <Style x:Key="CardStyle" TargetType="Border">
+                <Setter Property="Background" Value="{StaticResource SurfaceWhite}"/>
+                <Setter Property="CornerRadius" Value="6"/>
+                <Setter Property="BorderBrush" Value="{StaticResource BorderColor}"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="Padding" Value="20"/>
+                <Setter Property="Margin" Value="0,0,0,15"/>
+            </Style>
+
+            <Style x:Key="TagCheckBoxStyle" TargetType="CheckBox">
+                <Setter Property="Margin" Value="0,0,10,10"/>
+                <Setter Property="MinWidth" Value="120"/>
+                <Setter Property="Padding" Value="8,4"/>
+                <Setter Property="CornerRadius" Value="15"/>
+                <Setter Property="Background" Value="#E3F2FD"/>
+            </Style>
+        </Grid.Resources>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Background="{StaticResource SurfaceWhite}" Padding="25,15" BorderBrush="{StaticResource BorderColor}" BorderThickness="0,0,0,1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel>
+                <TextBlock Text="Ficha Clínica Integral" FontSize="22" FontWeight="SemiBold" Foreground="{StaticResource TextDark}"/>
+                <StackPanel Orientation="Horizontal" Spacing="10" Margin="0,5,0,0">
+                    <Border Background="#E1F5FE" CornerRadius="4" Padding="8,2">
+                        <TextBlock x:Name="PatientNameTitle" Text="PACIENTE: CARGANDO..." FontWeight="Bold" Foreground="{StaticResource PrimaryBlue}" FontSize="12"/>
+                    </Border>
+                    <TextBlock x:Name="TxtExamDate" Text="FECHA: --/--/----" VerticalAlignment="Center" Foreground="{StaticResource TextLight}" FontSize="12"/>
+                </StackPanel>
+            </StackPanel>
+
+            <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="10" VerticalAlignment="Center">
+                <Border Background="#FFF3E0" CornerRadius="12" Padding="12,4">
+                    <TextBlock Text="EN PROCESO" Foreground="#EF6C00" FontWeight="Bold" FontSize="11"/>
+                </Border>
+            </StackPanel>
+        </Grid>
+
+        <Pivot Grid.Row="1" Background="#F5F7FA">
+
+            <PivotItem Header="1. Anamnesis y Antecedentes">
+                <ScrollViewer Padding="20">
+                    <Grid ColumnSpacing="20">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="3*"/>
+                            <ColumnDefinition Width="2*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0">
+                            <Border Style="{StaticResource CardStyle}" BorderBrush="{StaticResource PrimaryBlue}" BorderThickness="0,3,0,0">
+                                <StackPanel>
+                                    <TextBlock Text="Motivo de Consulta (Chief Complaint)" Style="{StaticResource SectionHeaderStyle}"/>
+                                    <TextBox x:Name="TxtMotivo" PlaceholderText="¿Por qué viene el paciente hoy? (Ej: Visión borrosa de lejos...)" 
+                                             AcceptsReturn="True" Height="60" TextWrapping="Wrap"/>
+
+                                    <TextBlock Text="Enfermedad Actual / Historia del Problema" Style="{StaticResource SubHeaderStyle}"/>
+                                    <TextBox x:Name="TxtHistoriaActual" PlaceholderText="Detalles: ¿Desde cuándo? ¿Es progresivo? ¿Duele?..." 
+                                             AcceptsReturn="True" Height="80" TextWrapping="Wrap"/>
+                                </StackPanel>
+                            </Border>
+
+                            <Border Style="{StaticResource CardStyle}">
+                                <StackPanel>
+                                    <TextBlock Text="Lensometría (Corrección Actual)" Style="{StaticResource SectionHeaderStyle}"/>
+                                    <Grid RowSpacing="10" ColumnSpacing="10">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="40"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+
+                                        <TextBlock Grid.Row="0" Grid.Column="1" Text="ESFERA" HorizontalAlignment="Center" FontSize="10" FontWeight="Bold" Foreground="{StaticResource TextLight}"/>
+                                        <TextBlock Grid.Row="0" Grid.Column="2" Text="CILINDRO" HorizontalAlignment="Center" FontSize="10" FontWeight="Bold" Foreground="{StaticResource TextLight}"/>
+                                        <TextBlock Grid.Row="0" Grid.Column="3" Text="EJE" HorizontalAlignment="Center" FontSize="10" FontWeight="Bold" Foreground="{StaticResource TextLight}"/>
+                                        <TextBlock Grid.Row="0" Grid.Column="4" Text="ADD" HorizontalAlignment="Center" FontSize="10" FontWeight="Bold" Foreground="{StaticResource TextLight}"/>
+
+                                        <TextBlock Grid.Row="1" Grid.Column="0" Text="OD" VerticalAlignment="Center" FontWeight="Bold" Foreground="{StaticResource PrimaryBlue}"/>
+                                        <TextBox x:Name="TxtLensoSphOD" Grid.Row="1" Grid.Column="1" PlaceholderText="0.00"/>
+                                        <TextBox x:Name="TxtLensoCylOD" Grid.Row="1" Grid.Column="2" PlaceholderText="0.00"/>
+                                        <TextBox x:Name="TxtLensoAxisOD" Grid.Row="1" Grid.Column="3" PlaceholderText="0°"/>
+                                        <TextBox x:Name="TxtLensoAddOD" Grid.Row="1" Grid.Column="4" PlaceholderText="+0.00"/>
+
+                                        <TextBlock Grid.Row="2" Grid.Column="0" Text="OI" VerticalAlignment="Center" FontWeight="Bold" Foreground="{StaticResource SecondaryTeal}"/>
+                                        <TextBox x:Name="TxtLensoSphOI" Grid.Row="2" Grid.Column="1" PlaceholderText="0.00"/>
+                                        <TextBox x:Name="TxtLensoCylOI" Grid.Row="2" Grid.Column="2" PlaceholderText="0.00"/>
+                                        <TextBox x:Name="TxtLensoAxisOI" Grid.Row="2" Grid.Column="3" PlaceholderText="0°"/>
+                                        <TextBox x:Name="TxtLensoAddOI" Grid.Row="2" Grid.Column="4" PlaceholderText="+0.00"/>
+                                    </Grid>
+                                    <TextBox x:Name="TxtTipoLenteUso" PlaceholderText="Tipo de lente en uso (Ej: Progresivo, Bifocal, Contacto...)" Margin="0,10,0,0"/>
+                                </StackPanel>
+                            </Border>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="1">
+                            <Border Style="{StaticResource CardStyle}">
+                                <StackPanel>
+                                    <TextBlock Text="Antecedentes Personales (Sistémicos)" Style="{StaticResource SectionHeaderStyle}"/>
+                                    <StackPanel Spacing="5">
+                                        <CheckBox x:Name="ChkDiabetes" Content="Diabetes Mellitus"/>
+                                        <CheckBox x:Name="ChkHipertension" Content="Hipertensión Arterial"/>
+                                        <CheckBox x:Name="ChkColesterol" Content="Dislipidemia (Colesterol)"/>
+                                        <CheckBox x:Name="ChkTiroides" Content="Tiroides"/>
+                                        <CheckBox x:Name="ChkAlergias" Content="Alergias / Asma"/>
+                                    </StackPanel>
+                                    <TextBox x:Name="TxtMedication" Header="Medicación Actual" PlaceholderText="Nombre y dosis..." Margin="0,10,0,0"/>
+                                </StackPanel>
+                            </Border>
+
+                            <Border Style="{StaticResource CardStyle}">
+                                <StackPanel>
+                                    <TextBlock Text="Antecedentes Oculares / Familiares" Style="{StaticResource SectionHeaderStyle}"/>
+                                    <StackPanel Spacing="5">
+                                        <CheckBox x:Name="ChkGlaucomaFam" Content="Glaucoma (Familiar/Personal)"/>
+                                        <CheckBox x:Name="ChkCatarataFam" Content="Catarata"/>
+                                        <CheckBox x:Name="ChkCirugiaRef" Content="Cirugía Refractiva Previa"/>
+                                        <CheckBox x:Name="ChkTrauma" Content="Traumatismo Ocular"/>
+                                        <CheckBox x:Name="ChkEstrabismoFam" Content="Estrabismo / Ambliopía"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Border>
+                        </StackPanel>
+                    </Grid>
+                </ScrollViewer>
+            </PivotItem>
+
+            <PivotItem Header="2. Refracción Clínica">
+                <ScrollViewer Padding="20">
+                    <StackPanel>
+                        <Border Style="{StaticResource CardStyle}" BorderBrush="{StaticResource PrimaryBlue}" BorderThickness="0,3,0,0">
+                            <StackPanel>
+                                <Grid Margin="0,0,0,15">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="Refracción Subjetiva Final" Style="{StaticResource SectionHeaderStyle}" FontSize="16"/>
+                                    <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="10">
+                                        <TextBlock Text="D.P. (mm):" VerticalAlignment="Center" FontWeight="Bold"/>
+                                        <NumberBox x:Name="NbDP" Width="80" SpinButtonPlacementMode="Inline" PlaceholderText="60"/>
+                                    </StackPanel>
+                                </Grid>
+
+                                <Grid RowSpacing="15" ColumnSpacing="15">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="50"/>
+                                        <ColumnDefinition Width="90"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="90"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Border Grid.Column="1" Background="#F5F5F5" CornerRadius="4" Padding="5,2">
+                                        <TextBlock Text="AV S.C." HorizontalAlignment="Center" FontSize="11" FontWeight="Bold" Foreground="{StaticResource TextLight}"/>
+                                    </Border>
+                                    <Border Grid.Column="2" Background="#F5F5F5" CornerRadius="4" Padding="5,2">
+                                        <TextBlock Text="ESFERA" HorizontalAlignment="Center" FontSize="11" FontWeight="Bold" Foreground="{StaticResource TextLight}"/>
+                                    </Border>
+                                    <Border Grid.Column="3" Background="#F5F5F5" CornerRadius="4" Padding="5,2">
+                                        <TextBlock Text="CILINDRO" HorizontalAlignment="Center" FontSize="11" FontWeight="Bold" Foreground="{StaticResource TextLight}"/>
+                                    </Border>
+                                    <Border Grid.Column="4" Background="#F5F5F5" CornerRadius="4" Padding="5,2">
+                                        <TextBlock Text="EJE" HorizontalAlignment="Center" FontSize="11" FontWeight="Bold" Foreground="{StaticResource TextLight}"/>
+                                    </Border>
+                                    <Border Grid.Column="5" Background="#F5F5F5" CornerRadius="4" Padding="5,2">
+                                        <TextBlock Text="ADICIÓN" HorizontalAlignment="Center" FontSize="11" FontWeight="Bold" Foreground="{StaticResource TextLight}"/>
+                                    </Border>
+                                    <Border Grid.Column="6" Background="#E8F5E9" CornerRadius="4" Padding="5,2">
+                                        <TextBlock Text="AV FINAL" HorizontalAlignment="Center" FontSize="11" FontWeight="Bold" Foreground="{StaticResource SecondaryTeal}"/>
+                                    </Border>
+
+                                    <TextBlock Grid.Row="1" Text="OD" VerticalAlignment="Center" FontWeight="Black" FontSize="18" Foreground="{StaticResource PrimaryBlue}"/>
+                                    <TextBox x:Name="TxtAvscOD" Grid.Row="1" Grid.Column="1" PlaceholderText="--" HorizontalContentAlignment="Center"/>
+                                    <TextBox x:Name="TxtSphereOD" Grid.Row="1" Grid.Column="2" PlaceholderText="0.00" FontWeight="Bold" TextChanged="OnRefractionChanged"/>
+                                    <TextBox x:Name="TxtCylOD" Grid.Row="1" Grid.Column="3" PlaceholderText="0.00" TextChanged="OnRefractionChanged"/>
+                                    <TextBox x:Name="TxtAxisOD" Grid.Row="1" Grid.Column="4" PlaceholderText="0°"/>
+                                    <TextBox x:Name="TxtAddOD" Grid.Row="1" Grid.Column="5" PlaceholderText="+0.00" Foreground="{StaticResource PrimaryBlue}" TextChanged="OnRefractionChanged"/>
+                                    <TextBox x:Name="TxtAvOD" Grid.Row="1" Grid.Column="6" PlaceholderText="20/20" FontWeight="Bold" BorderBrush="{StaticResource SecondaryTeal}" BorderThickness="1"/>
+
+                                    <TextBlock Grid.Row="2" Text="OI" VerticalAlignment="Center" FontWeight="Black" FontSize="18" Foreground="{StaticResource SecondaryTeal}"/>
+                                    <TextBox x:Name="TxtAvscOI" Grid.Row="2" Grid.Column="1" PlaceholderText="--" HorizontalContentAlignment="Center"/>
+                                    <TextBox x:Name="TxtSphereOI" Grid.Row="2" Grid.Column="2" PlaceholderText="0.00" FontWeight="Bold" TextChanged="OnRefractionChanged"/>
+                                    <TextBox x:Name="TxtCylOI" Grid.Row="2" Grid.Column="3" PlaceholderText="0.00" TextChanged="OnRefractionChanged"/>
+                                    <TextBox x:Name="TxtAxisOI" Grid.Row="2" Grid.Column="4" PlaceholderText="0°"/>
+                                    <TextBox x:Name="TxtAddOI" Grid.Row="2" Grid.Column="5" PlaceholderText="+0.00" Foreground="{StaticResource PrimaryBlue}" TextChanged="OnRefractionChanged"/>
+                                    <TextBox x:Name="TxtAvOI" Grid.Row="2" Grid.Column="6" PlaceholderText="20/20" FontWeight="Bold" BorderBrush="{StaticResource SecondaryTeal}" BorderThickness="1"/>
+                                </Grid>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Style="{StaticResource CardStyle}">
+                            <Grid ColumnSpacing="20">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="Queratometría" VerticalAlignment="Center" FontWeight="Bold" Foreground="{StaticResource TextLight}" Width="100"/>
+                                <Grid Grid.Column="1" ColumnSpacing="10" RowSpacing="5">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <TextBox x:Name="TxtK1OD" PlaceholderText="OD K1 (Hz)" Grid.Row="0" Grid.Column="0"/>
+                                    <TextBox x:Name="TxtK2OD" PlaceholderText="OD K2 (Vt)" Grid.Row="0" Grid.Column="1"/>
+                                    <TextBox x:Name="TxtKAxisOD" PlaceholderText="OD Eje" Grid.Row="0" Grid.Column="2"/>
+
+                                    <TextBox x:Name="TxtK1OI" PlaceholderText="OI K1 (Hz)" Grid.Row="1" Grid.Column="0"/>
+                                    <TextBox x:Name="TxtK2OI" PlaceholderText="OI K2 (Vt)" Grid.Row="1" Grid.Column="1"/>
+                                    <TextBox x:Name="TxtKAxisOI" PlaceholderText="OI Eje" Grid.Row="1" Grid.Column="2"/>
+                                </Grid>
+                            </Grid>
+                        </Border>
+                    </StackPanel>
+                </ScrollViewer>
+            </PivotItem>
+
+            <PivotItem Header="3. Salud Ocular">
+                <ScrollViewer Padding="20">
+                    <Grid ColumnSpacing="20">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Border Style="{StaticResource CardStyle}">
+                            <StackPanel>
+                                <TextBlock Text="Biomicroscopía (Segmento Anterior)" Style="{StaticResource SectionHeaderStyle}"/>
+
+                                <Grid RowSpacing="10" ColumnSpacing="10">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <TextBlock Grid.Row="0" Grid.Column="1" Text="OD" HorizontalAlignment="Center" FontWeight="Bold" Foreground="{StaticResource PrimaryBlue}"/>
+                                    <TextBlock Grid.Row="0" Grid.Column="2" Text="OI" HorizontalAlignment="Center" FontWeight="Bold" Foreground="{StaticResource SecondaryTeal}"/>
+
+                                    <TextBlock Grid.Row="1" Text="Pterigión:" VerticalAlignment="Center"/>
+                                    <CheckBox x:Name="ChkPterigionOD" Grid.Row="1" Grid.Column="1" Content="Presente" HorizontalAlignment="Center"/>
+                                    <CheckBox x:Name="ChkPterigionOI" Grid.Row="1" Grid.Column="2" Content="Presente" HorizontalAlignment="Center"/>
+
+                                    <TextBlock Grid.Row="2" Text="Catarata:" VerticalAlignment="Center"/>
+                                    <CheckBox x:Name="ChkCatarataOD" Grid.Row="2" Grid.Column="1" Content="Presente" HorizontalAlignment="Center"/>
+                                    <CheckBox x:Name="ChkCatarataOI" Grid.Row="2" Grid.Column="2" Content="Presente" HorizontalAlignment="Center"/>
+
+                                    <TextBlock Grid.Row="3" Text="Glaucoma (PIO):" VerticalAlignment="Center"/>
+                                    <CheckBox x:Name="ChkGlaucomaOD" Grid.Row="3" Grid.Column="1" Content="Sospecha" HorizontalAlignment="Center"/>
+                                    <CheckBox x:Name="ChkGlaucomaOI" Grid.Row="3" Grid.Column="2" Content="Sospecha" HorizontalAlignment="Center"/>
+                                </Grid>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Grid.Column="1" Style="{StaticResource CardStyle}">
+                            <StackPanel>
+                                <TextBlock Text="Fondo de Ojo (Segmento Posterior)" Style="{StaticResource SectionHeaderStyle}"/>
+                                <TextBox x:Name="TxtFondoExcavacion" Header="Excavación / Nervio Óptico" PlaceholderText="Relación E/C..." Margin="0,0,0,10"/>
+                                <TextBox x:Name="TxtFondoMacula" Header="Mácula" PlaceholderText="Brillo foveal..." Margin="0,0,0,10"/>
+                                <TextBox x:Name="TxtFondoRetina" Header="Vasos y Retina" PlaceholderText="Cruces AV, hemorragias..." Height="60" TextWrapping="Wrap" AcceptsReturn="True"/>
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+                </ScrollViewer>
+            </PivotItem>
+
+            <PivotItem Header="4. Diagnóstico y Plan">
+                <ScrollViewer Padding="20">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Row="0" Style="{StaticResource CardStyle}" BorderBrush="#FFA000" BorderThickness="0,3,0,0">
+                            <StackPanel>
+                                <TextBlock Text="Resumen de Diagnósticos" Style="{StaticResource SectionHeaderStyle}"/>
+
+                                <TextBlock Text="Estado Refractivo" Style="{StaticResource SubHeaderStyle}"/>
+                                <StackPanel Orientation="Horizontal" Spacing="5" Margin="0,0,0,10">
+                                    <CheckBox x:Name="ChkEmetropia" Content="Emetropía" IsHitTestVisible="False" Background="#E8F5E9" CornerRadius="4" Padding="5"/>
+                                    <CheckBox x:Name="ChkMiopia" Content="Miopía" IsHitTestVisible="False" Background="#E3F2FD" CornerRadius="4" Padding="5"/>
+                                    <CheckBox x:Name="ChkHipermetropia" Content="Hipermetropía" IsHitTestVisible="False" Background="#FFF3E0" CornerRadius="4" Padding="5"/>
+                                    <CheckBox x:Name="ChkAstigmatismo" Content="Astigmatismo" IsHitTestVisible="False" Background="#F3E5F5" CornerRadius="4" Padding="5"/>
+                                    <CheckBox x:Name="ChkPresbicia" Content="Presbicia" IsHitTestVisible="False" Background="#EFEBE9" CornerRadius="4" Padding="5"/>
+                                </StackPanel>
+
+                                <TextBlock Text="Patología y Binocularidad" Style="{StaticResource SubHeaderStyle}"/>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="0">
+                                        <CheckBox x:Name="ChkAmbliopia" Content="Ambliopía" Margin="0,0,0,5"/>
+                                        <CheckBox x:Name="ChkEstrabismo" Content="Estrabismo" Margin="0,0,0,5"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="1">
+                                        <CheckBox x:Name="ChkConjuntivitis" Content="Conjuntivitis" Margin="0,0,0,5"/>
+                                        <CheckBox x:Name="ChkBlefaritis" Content="Blefaritis" Margin="0,0,0,5"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="2">
+                                        <CheckBox x:Name="ChkOjoSeco" Content="Ojo Seco Severo" Margin="0,0,0,5"/>
+                                        <CheckBox x:Name="ChkQueratocono" Content="Queratocono" Margin="0,0,0,5"/>
+                                    </StackPanel>
+                                </Grid>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Grid.Row="1" Style="{StaticResource CardStyle}">
+                            <StackPanel>
+                                <TextBlock Text="Plan de Manejo / Recomendaciones" Style="{StaticResource SectionHeaderStyle}"/>
+                                <Grid ColumnSpacing="20">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*"/>
+                                        <ColumnDefinition Width="1*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <StackPanel Grid.Column="0">
+                                        <TextBox x:Name="TxtObs" AcceptsReturn="True" Height="120" TextWrapping="Wrap" 
+                                                 PlaceholderText="Describa el tratamiento, higiene visual, control periódico, gotas recetadas..." 
+                                                 Header="Indicaciones al Paciente:"/>
+                                    </StackPanel>
+
+                                    <StackPanel Grid.Column="1">
+                                        <TextBlock Text="Sugerencia Óptica" FontWeight="Bold" Margin="0,0,0,10"/>
+                                        <ComboBox x:Name="CmbDiseno" Header="Diseño" HorizontalAlignment="Stretch" Margin="0,0,0,10" PlaceholderText="Seleccione...">
+                                            <ComboBoxItem Content="Monofocal"/>
+                                            <ComboBoxItem Content="Bifocal"/>
+                                            <ComboBoxItem Content="Progresivo"/>
+                                            <ComboBoxItem Content="Ocupacional"/>
+                                        </ComboBox>
+                                        <ComboBox x:Name="CmbMaterial" Header="Material" HorizontalAlignment="Stretch" PlaceholderText="Seleccione...">
+                                            <ComboBoxItem Content="CR-39"/>
+                                            <ComboBoxItem Content="Policarbonato"/>
+                                            <ComboBoxItem Content="Alto Índice 1.67"/>
+                                        </ComboBox>
+                                    </StackPanel>
+                                </Grid>
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+                </ScrollViewer>
+            </PivotItem>
+        </Pivot>
+
+        <Border Grid.Row="2" Background="{StaticResource SurfaceWhite}" BorderBrush="{StaticResource BorderColor}" BorderThickness="0,1,0,0" Padding="20,15">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <SymbolIcon Symbol="Important" Foreground="{StaticResource PrimaryBlue}" Margin="0,0,10,0"/>
+                    <TextBlock Text="Revise los datos antes de finalizar la consulta." Foreground="{StaticResource TextLight}" FontStyle="Italic" FontSize="12"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="15">
+                    <Button Content="Descartar" Click="Cancel_Click" Width="100" Background="Transparent" BorderBrush="{StaticResource AlertRed}" Foreground="{StaticResource AlertRed}" BorderThickness="1"/>
+                    <Button Content="GUARDAR FICHA" Click="SaveExam_Click" Width="160" Background="{StaticResource PrimaryBlue}" Foreground="White" FontWeight="Bold" CornerRadius="4" Height="36"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

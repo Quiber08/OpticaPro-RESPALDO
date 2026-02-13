@@ -1,0 +1,112 @@
+<Page
+    x:Class="OpticaPro.Views.OrdersPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid Padding="24">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Margin="0,0,0,24">
+            <TextBlock Text="Control de Pedidos" Style="{StaticResource TitleTextBlockStyle}"/>
+            <TextBlock Text="Gestiona todos los trabajos del taller, abonos y entregas." Foreground="Gray"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Spacing="16" Margin="0,0,0,24">
+            <Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" CornerRadius="8" Width="220" Padding="16" BorderThickness="1" BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}">
+                <StackPanel>
+                    <TextBlock Text="En Taller / Pendientes" Foreground="Gray" FontSize="12"/>
+                    <TextBlock x:Name="TxtPendingCount" Text="0" FontSize="32" FontWeight="Bold" Foreground="#D35400"/>
+                </StackPanel>
+            </Border>
+
+            <Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" CornerRadius="8" Width="220" Padding="16" BorderThickness="1" BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}">
+                <StackPanel>
+                    <TextBlock Text="Entregados (Total)" Foreground="Gray" FontSize="12"/>
+                    <TextBlock x:Name="TxtDeliveredCount" Text="0" FontSize="32" FontWeight="Bold" Foreground="Green"/>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" Spacing="12" Margin="0,0,0,16">
+            <TextBlock Text="Vista:" VerticalAlignment="Center" FontWeight="SemiBold" Margin="0,0,8,0"/>
+            <Button x:Name="BtnFilterAll" Content="Todos" Click="Filter_Click" Tag="All" Style="{StaticResource AccentButtonStyle}" Width="100"/>
+            <Button x:Name="BtnFilterPending" Content="En Taller" Click="Filter_Click" Tag="En Taller" Width="100"/>
+            <Button x:Name="BtnFilterDelivered" Content="Entregados" Click="Filter_Click" Tag="Entregado" Width="100"/>
+        </StackPanel>
+
+        <ListView Grid.Row="3" x:Name="OrdersListView" SelectionMode="None">
+            <ListView.Header>
+                <Grid Padding="12" Background="{ThemeResource SystemControlBackgroundChromeMediumLowBrush}" CornerRadius="4">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="140"/>
+                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="120"/>
+                        <ColumnDefinition Width="120"/>
+                        <ColumnDefinition Width="160"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Column="0" Text="F. Entrega" FontWeight="Bold"/>
+                    <TextBlock Grid.Column="1" Text="Cliente" FontWeight="Bold"/>
+                    <TextBlock Grid.Column="2" Text="Armazón / Detalle" FontWeight="Bold"/>
+                    <TextBlock Grid.Column="3" Text="Saldo" FontWeight="Bold"/>
+                    <TextBlock Grid.Column="4" Text="Estado" FontWeight="Bold"/>
+                    <TextBlock Grid.Column="5" Text="Acciones" FontWeight="Bold" HorizontalAlignment="Center"/>
+                </Grid>
+            </ListView.Header>
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Padding="0,12" BorderBrush="#20808080" BorderThickness="0,0,0,1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="140"/>
+                            <ColumnDefinition Width="200"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="120"/>
+                            <ColumnDefinition Width="120"/>
+                            <ColumnDefinition Width="160"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Column="0" Text="{Binding DeliveryDate}" VerticalAlignment="Center"/>
+
+                        <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="8">
+                            <FontIcon Glyph="&#xE77B;" FontSize="12" Foreground="Gray"/>
+                            <TextBlock Text="{Binding PatientName}" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                        </StackPanel>
+
+                        <TextBlock Grid.Column="2" Text="{Binding Frame}" Foreground="Gray" VerticalAlignment="Center" TextTrimming="CharacterEllipsis"/>
+
+                        <TextBlock Grid.Column="3" Text="{Binding FormattedBalance}" VerticalAlignment="Center" Foreground="Red" FontWeight="Bold"/>
+
+                        <Border Grid.Column="4" Background="#10808080" CornerRadius="4" Padding="8,4" HorizontalAlignment="Left" VerticalAlignment="Center">
+                            <TextBlock Text="{Binding Status}" Foreground="{Binding StatusColorBrush}" FontWeight="Bold" FontSize="12"/>
+                        </Border>
+
+                        <StackPanel Grid.Column="5" Orientation="Horizontal" Spacing="4" HorizontalAlignment="Center">
+                            <Button Click="BtnEdit_Click" Tag="{Binding}" ToolTipService.ToolTip="Editar Pedido" Padding="8" Background="Transparent" BorderThickness="0">
+                                <FontIcon Glyph="&#xE70F;" FontSize="16" Foreground="Gray"/>
+                            </Button>
+
+                            <Button Click="BtnAbonar_Click" Tag="{Binding}" ToolTipService.ToolTip="Registrar Abono" Padding="8" Background="Transparent" BorderThickness="0">
+                                <FontIcon Glyph="&#xE8C7;" FontSize="16" Foreground="Green"/>
+                            </Button>
+
+                            <Button Click="BtnEntregar_Click" Tag="{Binding}" ToolTipService.ToolTip="Entregar" Padding="8" Background="Transparent" BorderThickness="0">
+                                <FontIcon Glyph="&#xE74C;" FontSize="16" Foreground="#0078D7"/>
+                            </Button>
+                        </StackPanel>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</Page>

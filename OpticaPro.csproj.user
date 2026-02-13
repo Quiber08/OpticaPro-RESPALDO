@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <_LastSelectedProfileId>C:\Users\Quiber\Desktop\OpticaPro\OpticaPro\Properties\PublishProfiles\FolderProfile.pubxml</_LastSelectedProfileId>
+  </PropertyGroup>
+  <ItemGroup>
+    <ApplicationDefinition Update="App.xaml">
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="App.xaml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="MainWindow.xaml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Update="Package.appxmanifest">
+      <SubType>Designer</SubType>
+    </None>
+    <Page Update="Views\HistoryPreviewWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\AppointmentsPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\AddAppointmentWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\CreateOrderWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\MarketingWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="MainWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\AccountPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\AddPatientPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\AddPrescriptionPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\BackupPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\BulkInventoryWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\CertificatePreviewWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\CertificatesPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\ClinicalExamPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\ClinicPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\DashboardPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\FinancialReportPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\InventoryPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\LoginWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\OptotypeWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\OrdersPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\PatientHistoryPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\PatientsPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\PrescriptionsPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\ProductWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\ProfessionalPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\SettingsPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\SupportPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\UsersPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+</Project>

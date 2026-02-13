@@ -1,0 +1,212 @@
+<Page
+    x:Class="OpticaPro.Views.AppointmentsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="using:OpticaPro.Models"
+    xmlns:local="using:OpticaPro.Views"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <Style x:Key="StatCardStyle" TargetType="Border">
+            <Setter Property="Background" Value="{ThemeResource CardBackgroundFillColorDefaultBrush}"/>
+            <Setter Property="BorderBrush" Value="{ThemeResource CardStrokeColorDefaultBrush}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Padding" Value="16,12"/>
+            <Setter Property="Margin" Value="0,0,12,0"/>
+            <Setter Property="MinWidth" Value="140"/>
+        </Style>
+
+        <DataTemplate x:Key="AppointmentItemTemplate" x:DataType="models:Appointment">
+            <Grid Margin="0,0,0,12" Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" 
+                  CornerRadius="8" BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1" Padding="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="6"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Border Grid.Column="0" Background="{x:Bind StatusColorBrush}" CornerRadius="8,0,0,8"/>
+
+                <StackPanel Grid.Column="1" VerticalAlignment="Center" Padding="16,12" Width="90">
+                    <TextBlock Text="{x:Bind Time}" Style="{StaticResource TitleTextBlockStyle}" FontSize="20" Foreground="{ThemeResource TextFillColorPrimaryBrush}"/>
+                    <TextBlock Text="{x:Bind Date}" Style="{StaticResource CaptionTextBlockStyle}" Foreground="{ThemeResource TextFillColorTertiaryBrush}"/>
+                </StackPanel>
+
+                <Rectangle Grid.Column="1" HorizontalAlignment="Right" Width="1" Fill="{ThemeResource CardStrokeColorDefaultBrush}" Margin="0,10"/>
+
+                <StackPanel Grid.Column="2" VerticalAlignment="Center" Padding="16,8" Spacing="4">
+                    <TextBlock Text="{x:Bind PatientName}" Style="{StaticResource SubtitleTextBlockStyle}" FontWeight="SemiBold"/>
+                    <StackPanel Orientation="Horizontal" Spacing="12">
+                        <StackPanel Orientation="Horizontal" Spacing="6">
+                            <FontIcon Glyph="&#xE90A;" FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+                            <TextBlock Text="{x:Bind Reason}" Style="{StaticResource BodyTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+
+                <Border Grid.Column="3" Background="{x:Bind StatusBackgroundBrush}" Padding="12,6" CornerRadius="4" VerticalAlignment="Center" Margin="16,0">
+                    <TextBlock Text="{x:Bind Status}" Foreground="{x:Bind StatusTextBrush}" FontWeight="SemiBold" FontSize="12"/>
+                </Border>
+
+                <Button Grid.Column="4" Background="Transparent" BorderThickness="0" Padding="12" VerticalAlignment="Stretch">
+                    <FontIcon Glyph="&#xE712;" FontSize="16"/>
+                    <Button.Flyout>
+                        <MenuFlyout>
+                            <MenuFlyoutItem Text="Editar Detalles" Icon="Edit" Click="BtnEdit_Click" Tag="{x:Bind}"/>
+                            <MenuFlyoutSeparator/>
+                            <MenuFlyoutItem Text="Marcar como Completada" Icon="Accept" Click="BtnComplete_Click" Tag="{x:Bind}"/>
+                            <MenuFlyoutItem Text="Cancelar Cita" Icon="Cancel" Click="BtnCancelStatus_Click" Tag="{x:Bind}"/>
+                            <MenuFlyoutSeparator/>
+                            <MenuFlyoutItem Text="Eliminar Registro" Icon="Delete" Foreground="Red" Click="BtnDelete_Click" Tag="{x:Bind}"/>
+                        </MenuFlyout>
+                    </Button.Flyout>
+                </Button>
+            </Grid>
+        </DataTemplate>
+    </Page.Resources>
+
+    <Grid Background="{ThemeResource LayerFillColorDefaultBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Padding="32,24,32,12">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Spacing="4">
+                <TextBlock Text="Gesti&#243;n de Citas" Style="{StaticResource TitleTextBlockStyle}"/>
+                <TextBlock Text="Administraci&#243;n de agenda y consultas" Style="{StaticResource BodyTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+            </StackPanel>
+
+            <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="12">
+                <Button Click="BtnRefresh_Click" ToolTipService.ToolTip="Recargar datos">
+                    <FontIcon Glyph="&#xE72C;"/>
+                </Button>
+                <Button Click="BtnNew_Click" Style="{StaticResource AccentButtonStyle}" Padding="16,8">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <FontIcon Glyph="&#xE710;"/>
+                        <TextBlock Text="Nueva Cita"/>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Row="1" Padding="32,0,32,20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Orientation="Horizontal">
+                <Border Style="{StaticResource StatCardStyle}">
+                    <StackPanel>
+                        <TextBlock Text="Pendientes" FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+                        <TextBlock x:Name="TxtStatsPending" Text="0" FontSize="24" FontWeight="Bold" Foreground="Orange"/>
+                    </StackPanel>
+                </Border>
+                <Border Style="{StaticResource StatCardStyle}">
+                    <StackPanel>
+                        <TextBlock Text="Citas de Hoy" FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+                        <TextBlock x:Name="TxtStatsToday" Text="0" FontSize="24" FontWeight="Bold" Foreground="{ThemeResource AccentFillColorDefaultBrush}"/>
+                    </StackPanel>
+                </Border>
+                <Border Style="{StaticResource StatCardStyle}">
+                    <StackPanel>
+                        <TextBlock Text="Total Registro" FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+                        <TextBlock x:Name="TxtStatsTotal" Text="0" FontSize="24" FontWeight="Bold"/>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+
+            <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="12" VerticalAlignment="Bottom">
+                <CalendarDatePicker x:Name="FilterDate" 
+                                    PlaceholderText="Filtrar por fecha" 
+                                    Width="160" 
+                                    DateChanged="FilterDate_DateChanged"/>
+
+                <AutoSuggestBox x:Name="SearchBox" 
+                                Width="240" 
+                                QueryIcon="Find" 
+                                PlaceholderText="Buscar paciente..." 
+                                TextChanged="SearchBox_TextChanged"/>
+
+                <Button Content="Limpiar" Click="BtnClearFilter_Click"/>
+            </StackPanel>
+        </Grid>
+
+        <Pivot Grid.Row="2" x:Name="MainPivot" SelectionChanged="MainPivot_SelectionChanged">
+            <Pivot.HeaderTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding}" FontSize="16" FontWeight="SemiBold" Padding="0,0,0,8"/>
+                </DataTemplate>
+            </Pivot.HeaderTemplate>
+
+            <PivotItem Header="Todas">
+                <Grid>
+                    <ListView x:Name="ListAll" 
+                              ItemTemplate="{StaticResource AppointmentItemTemplate}" 
+                              SelectionMode="None" 
+                              Padding="24,12"/>
+
+                    <StackPanel x:Name="EmptyAll" Visibility="Collapsed" VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="12">
+                        <FontIcon Glyph="&#xE9D9;" FontSize="48" Foreground="{ThemeResource TextFillColorTertiaryBrush}"/>
+                        <TextBlock Text="No se encontraron citas" Style="{StaticResource SubtitleTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+                    </StackPanel>
+                </Grid>
+            </PivotItem>
+
+            <PivotItem Header="Pendientes">
+                <Grid>
+                    <ListView x:Name="ListPending" 
+                              ItemTemplate="{StaticResource AppointmentItemTemplate}" 
+                              SelectionMode="None" 
+                              Padding="24,12"/>
+
+                    <StackPanel x:Name="EmptyPending" Visibility="Collapsed" VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="12">
+                        <FontIcon Glyph="&#xE787;" FontSize="48" Foreground="Orange"/>
+                        <TextBlock Text="Todo al d&#237;a. No hay citas pendientes." Style="{StaticResource SubtitleTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+                    </StackPanel>
+                </Grid>
+            </PivotItem>
+
+            <PivotItem Header="Completadas">
+                <Grid>
+                    <ListView x:Name="ListCompleted" 
+                              ItemTemplate="{StaticResource AppointmentItemTemplate}" 
+                              SelectionMode="None" 
+                              Padding="24,12"/>
+
+                    <StackPanel x:Name="EmptyCompleted" Visibility="Collapsed" VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="12">
+                        <FontIcon Glyph="&#xE73E;" FontSize="48" Foreground="Green"/>
+                        <TextBlock Text="A&#250;n no hay citas completadas." Style="{StaticResource SubtitleTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+                    </StackPanel>
+                </Grid>
+            </PivotItem>
+
+            <PivotItem Header="Canceladas">
+                <Grid>
+                    <ListView x:Name="ListCanceled" 
+                              ItemTemplate="{StaticResource AppointmentItemTemplate}" 
+                              SelectionMode="None" 
+                              Padding="24,12"/>
+
+                    <StackPanel x:Name="EmptyCanceled" Visibility="Collapsed" VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="12">
+                        <FontIcon Glyph="&#xE711;" FontSize="48" Foreground="Red"/>
+                        <TextBlock Text="No hay citas canceladas." Style="{StaticResource SubtitleTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+                    </StackPanel>
+                </Grid>
+            </PivotItem>
+        </Pivot>
+    </Grid>
+</Page>

@@ -1,0 +1,125 @@
+<Window
+    x:Class="OpticaPro.Views.LoginWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Title="Acceso OpticaPro">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="450"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0">
+            <Grid.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#001529" Offset="0.0"/>
+                    <GradientStop Color="#003A70" Offset="1.0"/>
+                </LinearGradientBrush>
+            </Grid.Background>
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="24">
+                <Grid Width="140" Height="140">
+                    <Ellipse Fill="White" Opacity="0.1"/>
+                    <FontIcon Glyph="&#xE776;" FontSize="70" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Grid>
+                <StackPanel Spacing="8">
+                    <TextBlock Text="OPTICAPRO" FontSize="36" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center" CharacterSpacing="100"/>
+                    <TextBlock Text="Sistema de Gestión Integral" FontSize="16" Foreground="#AABBDD" HorizontalAlignment="Center" FontWeight="Light"/>
+                </StackPanel>
+            </StackPanel>
+
+            <TextBlock Text="© 2026 OpticaPro" VerticalAlignment="Bottom" HorizontalAlignment="Center" Foreground="#B0FFFFFF" FontSize="12" Margin="0,0,0,30"/>
+        </Grid>
+
+        <Grid Grid.Column="1" Background="#181818" RequestedTheme="Dark">
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Width="450" Spacing="35">
+
+                <StackPanel Spacing="8" Margin="0,0,0,15">
+                    <TextBlock x:Name="LblWelcome" Text="¿Quién eres?" FontSize="32" FontWeight="SemiBold" Foreground="White" HorizontalAlignment="Center"/>
+                    <TextBlock x:Name="LblInstruction" Text="Selecciona tu perfil para ingresar." FontSize="16" Foreground="#D0D0D0" HorizontalAlignment="Center"/>
+                </StackPanel>
+
+                <StackPanel x:Name="PanelLicense" Visibility="Collapsed" Spacing="20">
+                    <TextBox x:Name="TxtLicense" 
+                             Header="Clave de Licencia" 
+                             PlaceholderText="XXXX-XXXX-XXXX" 
+                             CornerRadius="6" 
+                             Padding="12"
+                             FontSize="16">
+                        <TextBox.Resources>
+                            <SolidColorBrush x:Key="TextControlBackground" Color="White"/>
+                            <SolidColorBrush x:Key="TextControlForeground" Color="Black"/>
+                            <SolidColorBrush x:Key="TextControlBorderBrush" Color="#E0E0E0"/>
+                            <SolidColorBrush x:Key="TextControlBackgroundPointerOver" Color="White"/>
+                            <SolidColorBrush x:Key="TextControlForegroundPointerOver" Color="Black"/>
+                            <SolidColorBrush x:Key="TextControlBorderBrushPointerOver" Color="#0078D4"/>
+                            <SolidColorBrush x:Key="TextControlBackgroundFocused" Color="White"/>
+                            <SolidColorBrush x:Key="TextControlForegroundFocused" Color="Black"/>
+                            <SolidColorBrush x:Key="TextControlBorderBrushFocused" Color="#0078D4"/>
+                        </TextBox.Resources>
+                    </TextBox>
+
+                    <Button Content="Validar Licencia" Click="ValidateLicense_Click" HorizontalAlignment="Stretch" Background="#0078D4" Foreground="White" CornerRadius="6" Height="45"/>
+                </StackPanel>
+
+                <StackPanel x:Name="PanelRegister" Visibility="Collapsed" Spacing="20">
+                    <TextBlock Text="¡Licencia Válida! Completa el registro." HorizontalAlignment="Center" FontWeight="SemiBold" Foreground="#28A745"/>
+
+                    <TextBox x:Name="TxtBusinessName" Header="Nombre del Establecimiento" PlaceholderText="Ej: Óptica Visión Plus" Background="White" Foreground="Black" CornerRadius="6" Padding="12"/>
+
+                    <TextBox x:Name="TxtRegUser" Header="Nombre del Doctor (Admin)" Background="White" Foreground="Black" CornerRadius="6" Padding="12"/>
+                    <PasswordBox x:Name="TxtRegPass" Header="Nueva Contraseña" Background="White" Foreground="Black" CornerRadius="6" Padding="12"/>
+
+                    <Button Content="Registrar y Entrar" Click="Register_Click" HorizontalAlignment="Stretch" Background="#28A745" Foreground="White" CornerRadius="6" Height="45"/>
+                </StackPanel>
+
+                <GridView x:Name="UserSelectionList" SelectionMode="None" HorizontalAlignment="Center" Visibility="Collapsed">
+                    <GridView.ItemTemplate>
+                        <DataTemplate>
+                            <Button Click="UserItem_Click" Tag="{Binding}" Background="Transparent" BorderThickness="0" Padding="10" CornerRadius="8" Margin="5">
+                                <StackPanel Spacing="12" Width="120">
+                                    <PersonPicture DisplayName="{Binding FullName}" Height="80" Width="80"/>
+                                    <TextBlock Text="{Binding FullName}" Foreground="White" FontWeight="SemiBold" HorizontalAlignment="Center" TextTrimming="CharacterEllipsis"/>
+                                    <TextBlock Text="{Binding Role}" Foreground="#AAAAAA" FontSize="12" HorizontalAlignment="Center"/>
+                                </StackPanel>
+                            </Button>
+                        </DataTemplate>
+                    </GridView.ItemTemplate>
+                </GridView>
+
+                <StackPanel x:Name="PanelPassword" Visibility="Collapsed" Spacing="25">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="15" Background="#252525" Padding="10,5,20,5" CornerRadius="30">
+                        <PersonPicture x:Name="SelectedUserPic" Height="40" Width="40"/>
+                        <TextBlock x:Name="SelectedUserName" Text="Nombre Usuario" VerticalAlignment="Center" FontWeight="Bold" Foreground="White"/>
+                        <Button Click="BackToUsers_Click" Background="Transparent" BorderThickness="0" Padding="5" ToolTipService.ToolTip="Cambiar usuario">
+                            <FontIcon Glyph="&#xE711;" FontSize="12" Foreground="Red"/>
+                        </Button>
+                    </StackPanel>
+
+                    <StackPanel Spacing="10">
+                        <TextBlock Text="CONTRASEÑA" FontSize="12" FontWeight="Bold" Foreground="#AAAAAA" CharacterSpacing="50"/>
+                        <PasswordBox x:Name="TxtLoginPass" PlaceholderText="Ingresa tu clave" PasswordChar="•" CornerRadius="8" Padding="14" Height="55" FontSize="18" BorderThickness="2" KeyDown="TxtLoginPass_KeyDown">
+                            <PasswordBox.Resources>
+                                <SolidColorBrush x:Key="TextControlBackground" Color="White"/>
+                                <SolidColorBrush x:Key="TextControlForeground" Color="Black"/>
+                                <SolidColorBrush x:Key="TextControlBorderBrush" Color="Transparent"/>
+                                <SolidColorBrush x:Key="TextControlBackgroundFocused" Color="White"/>
+                                <SolidColorBrush x:Key="TextControlForegroundFocused" Color="Black"/>
+                                <SolidColorBrush x:Key="TextControlBorderBrushFocused" Color="#0078D4"/>
+                            </PasswordBox.Resources>
+                        </PasswordBox>
+                    </StackPanel>
+
+                    <Button Content="Ingresar al Sistema" Click="Login_Click" HorizontalAlignment="Stretch" Height="60" Background="#0078D4" Foreground="White" CornerRadius="8" FontSize="18" FontWeight="Bold"/>
+
+                    <HyperlinkButton Content="¿Olvidaste tu contraseña?" Click="ForgotPassword_Click" HorizontalAlignment="Center" Foreground="#0078D4" Opacity="0.8"/>
+                </StackPanel>
+
+                <TextBlock x:Name="LblError" Foreground="#FF5252" FontSize="14" HorizontalAlignment="Center" FontWeight="SemiBold"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>
