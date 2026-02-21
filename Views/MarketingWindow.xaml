@@ -1,0 +1,185 @@
+<Window
+    x:Class="OpticaPro.Views.MarketingWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:OpticaPro.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Title="Centro de Marketing - OpticaPro">
+
+	<Grid Background="#F3F3F3">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="Auto"/>
+		</Grid.RowDefinitions>
+
+		<Grid Grid.Row="0" Background="White" Padding="20,15" BorderBrush="#E0E0E0" BorderThickness="0,0,0,1">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="*"/>
+				<ColumnDefinition Width="Auto"/>
+			</Grid.ColumnDefinitions>
+
+			<StackPanel Spacing="5">
+				<StackPanel Orientation="Horizontal" Spacing="10" VerticalAlignment="Center">
+					<FontIcon Glyph="&#xE1D3;" FontSize="22" Foreground="#0078D4"/>
+					<TextBlock Text="Marketing Center" FontSize="20" FontWeight="SemiBold" Foreground="#333333"/>
+				</StackPanel>
+				<TextBlock x:Name="TxtStatus" Text="Esperando carga..." FontSize="12" Foreground="#666666" Margin="32,0,0,0"/>
+			</StackPanel>
+
+			<StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="10">
+				<Button Click="BtnRefresh_Click" Background="#F0F0F0" BorderBrush="#CCCCCC" BorderThickness="1" Padding="10,6" ToolTipService.ToolTip="Recargar base de datos">
+					<StackPanel Orientation="Horizontal" Spacing="8">
+						<FontIcon Glyph="&#xE72C;" FontSize="14"/>
+						<TextBlock Text="Recargar"/>
+					</StackPanel>
+				</Button>
+				<Button Click="BtnToggleBrowser_Click" Background="#0078D4" Foreground="White" Padding="10,6" CornerRadius="4">
+					<StackPanel Orientation="Horizontal" Spacing="8">
+						<FontIcon Glyph="&#xE12D;"/>
+						<TextBlock Text="WhatsApp Panel"/>
+					</StackPanel>
+				</Button>
+			</StackPanel>
+		</Grid>
+
+		<Pivot Grid.Row="1" Padding="15,10,15,0">
+			<PivotItem Header="Recordatorios de Retiro">
+				<Grid Margin="0,10,0,0">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="320"/>
+						<ColumnDefinition Width="*"/>
+					</Grid.ColumnDefinitions>
+
+					<Border Background="White" CornerRadius="8" Padding="15" BorderBrush="#E5E5E5" BorderThickness="1" VerticalAlignment="Top" Margin="0,0,15,0">
+						<StackPanel Spacing="15">
+							<TextBlock Text="Filtros" FontWeight="Bold" Foreground="#444"/>
+
+							<TextBox x:Name="TxtSearchReady" Header="Buscar Paciente" PlaceholderText="Nombre, DNI..." TextChanged="FilterChanged"/>
+
+							<ComboBox x:Name="CmbStatusFilter" Header="Estado Orden" SelectedIndex="0" SelectionChanged="FilterChanged" HorizontalAlignment="Stretch">
+								<ComboBoxItem Content="Todos los Pendientes"/>
+								<ComboBoxItem Content="Listos para Entregar"/>
+								<ComboBoxItem Content="En Proceso"/>
+							</ComboBox>
+
+							<Border Height="1" Background="#EEEEEE" Margin="0,5"/>
+							<TextBlock Text="Nota: Solo se muestran pacientes con órdenes activas (no entregadas)." FontSize="11" Foreground="Gray" TextWrapping="Wrap"/>
+						</StackPanel>
+					</Border>
+
+					<ListView x:Name="ListReadyOrders" Grid.Column="1" SelectionMode="None">
+						<ListView.ItemContainerStyle>
+							<Style TargetType="ListViewItem">
+								<Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+								<Setter Property="Margin" Value="0,0,0,8"/>
+							</Style>
+						</ListView.ItemContainerStyle>
+						<ListView.ItemTemplate>
+							<DataTemplate x:DataType="local:OrderNotificationItem">
+								<Grid Background="White" CornerRadius="6" BorderBrush="#E5E5E5" BorderThickness="1" Padding="12">
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="*"/>
+										<ColumnDefinition Width="Auto"/>
+									</Grid.ColumnDefinitions>
+
+									<StackPanel Spacing="4">
+										<StackPanel Orientation="Horizontal" Spacing="8">
+											<FontIcon Glyph="&#xE8B8;" FontSize="14" Foreground="#0078D4"/>
+											<TextBlock Text="{x:Bind PatientName}" FontWeight="Bold" Foreground="#333"/>
+										</StackPanel>
+										<TextBlock Text="{x:Bind OrderDetails}" FontSize="12" Foreground="Gray" Margin="22,0,0,0"/>
+
+										<Border Background="{x:Bind StatusBg}" HorizontalAlignment="Left" CornerRadius="3" Padding="6,2" Margin="22,4,0,0">
+											<TextBlock Text="{x:Bind Status}" Foreground="{x:Bind StatusFg}" FontSize="11" FontWeight="SemiBold"/>
+										</Border>
+									</StackPanel>
+
+									<Button Grid.Column="1" Click="BtnNotify_Click" Background="#25D366" Foreground="White" BorderThickness="0" CornerRadius="4" Padding="10,6" VerticalAlignment="Center">
+										<StackPanel Orientation="Horizontal" Spacing="6">
+											<FontIcon Glyph="&#xE119;"/>
+											<TextBlock Text="Enviar"/>
+										</StackPanel>
+									</Button>
+								</Grid>
+							</DataTemplate>
+						</ListView.ItemTemplate>
+					</ListView>
+				</Grid>
+			</PivotItem>
+
+			<PivotItem Header="Campaña Masiva">
+				<Grid Margin="0,10,0,0">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="350"/>
+						<ColumnDefinition Width="*"/>
+					</Grid.ColumnDefinitions>
+
+					<Border Background="White" CornerRadius="8" Padding="15" BorderBrush="#E5E5E5" BorderThickness="1" VerticalAlignment="Top" Margin="0,0,15,0">
+						<StackPanel Spacing="12">
+							<StackPanel Orientation="Horizontal" Spacing="8">
+								<FontIcon Glyph="&#xE77F;" Foreground="#0078D4"/>
+								<TextBlock Text="Configuración de Envío" FontWeight="Bold"/>
+							</StackPanel>
+
+							<InfoBar IsOpen="True" Severity="Informational" IsClosable="False" Message="No cierres esta ventana mientras se realiza el envío."/>
+
+							<TextBox x:Name="TxtPromoMsg" Header="Mensaje" AcceptsReturn="True" Height="100" TextWrapping="Wrap" PlaceholderText="Hola {Nombre}, tenemos descuentos..."/>
+							<TextBlock Text="Variable disponible: {Nombre}" FontSize="11" Foreground="Gray"/>
+
+							<Button Click="BtnPrepare_Click" Content="1. Generar Lista" HorizontalAlignment="Stretch"/>
+							<Button Click="BtnStartMass_Click" Content="2. ▶ INICIAR CAMPAÑA" Background="#0078D4" Foreground="White" HorizontalAlignment="Stretch" FontWeight="Bold"/>
+
+							<ProgressBar x:Name="PromoProgress" IsIndeterminate="False" ShowPaused="False"/>
+						</StackPanel>
+					</Border>
+
+					<Grid Grid.Column="1">
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="*"/>
+						</Grid.RowDefinitions>
+						<TextBlock Text="Cola de Envío" FontWeight="SemiBold" Margin="0,0,0,10"/>
+
+						<ListView x:Name="ListPromoQueue" Grid.Row="1" SelectionMode="None">
+							<ListView.ItemTemplate>
+								<DataTemplate x:DataType="local:PromoQueueItem">
+									<Grid Background="White" Padding="10" Margin="0,0,0,4" CornerRadius="4" BorderBrush="#E5E5E5" BorderThickness="1">
+										<Grid.ColumnDefinitions>
+											<ColumnDefinition Width="*"/>
+											<ColumnDefinition Width="Auto"/>
+										</Grid.ColumnDefinitions>
+										<StackPanel>
+											<TextBlock Text="{x:Bind DisplayName}" FontWeight="SemiBold"/>
+											<TextBlock Text="{x:Bind StatusText, Mode=OneWay}" FontSize="11" Foreground="Gray"/>
+										</StackPanel>
+										<StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="10" VerticalAlignment="Center">
+											<FontIcon Glyph="&#xE10B;" Visibility="{x:Bind IsSent, Mode=OneWay}" Foreground="Green"/>
+											<Button Content="Reenviar" Click="BtnSendOne_Click" Visibility="{x:Bind IsPending, Mode=OneWay}" FontSize="11" Padding="5,3"/>
+										</StackPanel>
+									</Grid>
+								</DataTemplate>
+							</ListView.ItemTemplate>
+						</ListView>
+					</Grid>
+				</Grid>
+			</PivotItem>
+		</Pivot>
+
+		<Grid x:Name="BrowserContainer" Grid.Row="2" Height="0" Background="#F9F9F9" BorderBrush="#CCCCCC" BorderThickness="0,1,0,0">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="*"/>
+			</Grid.RowDefinitions>
+			<Border Background="White" Padding="10" BorderBrush="#EEEEEE" BorderThickness="0,0,0,1">
+				<StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Spacing="10">
+					<TextBlock Text="WhatsApp Web Integration" VerticalAlignment="Center" Foreground="Gray" FontSize="12"/>
+					<Button Content="Ocultar Panel" Click="BtnToggleBrowser_Click" FontSize="11"/>
+				</StackPanel>
+			</Border>
+			<WebView2 x:Name="WppBrowser" Grid.Row="1"/>
+		</Grid>
+	</Grid>
+</Window>

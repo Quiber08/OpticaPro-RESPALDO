@@ -1,0 +1,73 @@
+<Page
+    x:Class="OpticaPro.Views.BackupPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <ScrollViewer Padding="40">
+        <StackPanel MaxWidth="800" HorizontalAlignment="Center" Spacing="30">
+
+            <StackPanel Spacing="8">
+                <TextBlock Text="Copias de Seguridad" Style="{StaticResource TitleTextBlockStyle}" FontWeight="Bold"/>
+                <TextBlock Text="Genera un archivo JSON con todos tus pacientes (SQLite) e inventario para resguardar tu información." 
+                           Style="{StaticResource BodyTextBlockStyle}" Opacity="0.6"/>
+            </StackPanel>
+
+            <Grid CornerRadius="12" Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                  BorderThickness="1" BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                  Padding="30">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Spacing="12">
+                    <StackPanel Orientation="Horizontal" Spacing="12">
+                        <FontIcon Glyph="&#xE753;" FontSize="24" Foreground="{ThemeResource SystemControlForegroundAccentBrush}"/>
+                        <TextBlock Text="Crear Copia de Seguridad" Style="{StaticResource SubtitleTextBlockStyle}"/>
+                    </StackPanel>
+                    <TextBlock Text="Guarda todos los datos actuales en un archivo .json" Opacity="0.7"/>
+
+                    <CheckBox x:Name="ChkEncrypt" Content="Cifrar archivo con contraseña (Mayor seguridad)" Margin="0,8,0,0"/>
+                </StackPanel>
+
+                <Button Grid.Column="1" x:Name="BtnBackup" Content="Generar Respaldo" 
+                        Style="{StaticResource AccentButtonStyle}" VerticalAlignment="Center"
+                        Click="BtnBackup_Click" Padding="20,10"/>
+            </Grid>
+
+            <Grid CornerRadius="12" Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                  BorderThickness="1" BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                  Padding="30">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Spacing="12">
+                    <StackPanel Orientation="Horizontal" Spacing="12">
+                        <FontIcon Glyph="&#xE896;" FontSize="24" Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}"/>
+                        <TextBlock Text="Restaurar Datos" Style="{StaticResource SubtitleTextBlockStyle}"/>
+                    </StackPanel>
+                    <TextBlock Text="Importa un archivo .json y reemplaza la base de datos actual." Opacity="0.7"/>
+                    <InfoBar Severity="Warning" IsOpen="True" IsClosable="False" 
+                             Message="Advertencia: Al restaurar se borrarán los datos actuales para evitar duplicados."/>
+                </StackPanel>
+
+                <Button Grid.Column="1" x:Name="BtnRestore" Content="Cargar Archivo..." 
+                        VerticalAlignment="Center" Click="BtnRestore_Click" Padding="20,10"/>
+            </Grid>
+
+            <StackPanel Spacing="8" Margin="0,20,0,0">
+                <TextBlock Text="Historial de Actividad" Style="{StaticResource BodyStrongTextBlockStyle}"/>
+                <TextBox x:Name="TxtLog" Height="150" AcceptsReturn="True" IsReadOnly="True" 
+                         FontFamily="Consolas" FontSize="12" 
+                         PlaceholderText="Esperando acciones..."/>
+            </StackPanel>
+
+        </StackPanel>
+    </ScrollViewer>
+</Page>

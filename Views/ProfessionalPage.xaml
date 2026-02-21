@@ -1,0 +1,63 @@
+<Page
+    x:Class="OpticaPro.Views.ProfessionalPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <ScrollViewer>
+        <Grid Padding="30" HorizontalAlignment="Stretch">
+            <StackPanel Spacing="24" MaxWidth="800" HorizontalAlignment="Center">
+
+                <StackPanel Orientation="Horizontal" Spacing="16" Margin="0,0,0,10">
+                    <Grid Width="64" Height="64" CornerRadius="32" Background="{ThemeResource SystemAccentColorLight2}">
+                        <FontIcon Glyph="&#xE77B;" FontSize="32" Foreground="{ThemeResource SystemAccentColor}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Grid>
+                    <StackPanel VerticalAlignment="Center">
+                        <TextBlock Text="Datos del Profesional" Style="{StaticResource TitleTextBlockStyle}"/>
+                        <TextBlock Text="Firma digital para certificados y recetas" Foreground="Gray"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" 
+                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" 
+                        BorderThickness="1" 
+                        CornerRadius="8" 
+                        Padding="32">
+                    <Border.Shadow>
+                        <ThemeShadow/>
+                    </Border.Shadow>
+
+                    <StackPanel Spacing="24">
+                        <TextBox x:Name="TxtName" Header="Nombre y Apellido (con Título)" PlaceholderText="Ej. Dr. Juan Pérez" HorizontalAlignment="Stretch"/>
+
+                        <Grid ColumnSpacing="24">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBox x:Name="TxtSpecialty" Grid.Column="0" Header="Especialidad / Cargo" PlaceholderText="Ej. Optometrista"/>
+                            <TextBox x:Name="TxtLicense" Grid.Column="1" Header="Registro Profesional (Senescyt)" PlaceholderText="Ej. 1020-2026-AC"/>
+                        </Grid>
+
+                        <InfoBar IsOpen="True" Severity="Informational" Title="Vista Previa" Message="Estos datos aparecerán automáticamente al pie de los documentos generados." IsClosable="False"/>
+                    </StackPanel>
+                </Border>
+
+                <StackPanel Orientation="Horizontal" Spacing="16" HorizontalAlignment="Right" Margin="0,10,0,20">
+                    <Button Content="Cancelar" Click="Cancel_Click" Width="120" Height="45"/>
+                    <Button Click="Save_Click" Style="{StaticResource AccentButtonStyle}" Width="200" Height="45">
+                        <StackPanel Orientation="Horizontal" Spacing="10">
+                            <FontIcon Glyph="&#xE74E;"/>
+                            <TextBlock Text="GUARDAR CAMBIOS" FontWeight="Bold"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
+</Page>

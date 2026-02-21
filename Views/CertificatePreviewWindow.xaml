@@ -1,0 +1,179 @@
+<Window
+    x:Class="OpticaPro.Views.CertificatePreviewWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Title="Guardar Certificado">
+    <Grid Background="#F3F3F3">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Background="White" Padding="16,10" BorderBrush="#E0E0E0" BorderThickness="0,0,0,1">
+            <StackPanel Orientation="Horizontal" Spacing="12" HorizontalAlignment="Right">
+                <Button Content="Cerrar" Click="Close_Click"/>
+                <Button Click="SavePdf_Click" Style="{StaticResource AccentButtonStyle}">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <FontIcon Glyph="&#xE74E;"/>
+                        <TextBlock Text="GUARDAR PDF"/>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </Grid>
+
+        <ScrollViewer Grid.Row="1" Padding="40">
+            <Grid x:Name="PrintArea" Width="794" Height="1123" Background="White" HorizontalAlignment="Center" VerticalAlignment="Top" Padding="60">
+                <Grid.Shadow>
+                    <ThemeShadow/>
+                </Grid.Shadow>
+
+                <StackPanel>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel>
+                            <TextBlock x:Name="RunClinicName" Text="NOMBRE CLÍNICA" FontSize="32" FontWeight="Bold" Foreground="#003A70"/>
+                            <TextBlock x:Name="RunClinicAddress" Text="Dirección" FontSize="12" Foreground="Gray"/>
+                            <StackPanel Orientation="Horizontal" Spacing="10">
+                                <TextBlock x:Name="RunClinicPhone" Text="Tel..." FontSize="12" Foreground="Gray"/>
+                                <TextBlock x:Name="RunClinicRuc" Text="RUC..." FontSize="12" Foreground="Gray"/>
+                            </StackPanel>
+                        </StackPanel>
+                        <Border Grid.Column="1" BorderBrush="#003A70" BorderThickness="2" CornerRadius="4" Padding="10,5" VerticalAlignment="Top">
+                            <TextBlock Text="CERTIFICADO VISUAL" FontWeight="Bold" Foreground="#003A70" FontSize="14"/>
+                        </Border>
+                    </Grid>
+
+                    <Rectangle Height="2" Fill="#003A70" Margin="0,15,0,25"/>
+
+                    <TextBlock Text="DATOS DEL PACIENTE" FontWeight="Bold" Foreground="#003A70" Margin="0,0,0,5"/>
+                    <Border BorderBrush="#E0E0E0" BorderThickness="1" Padding="15" CornerRadius="4" Background="#FAFAFA">
+                        <Grid RowSpacing="8">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Text="Nombre:" FontWeight="SemiBold" Grid.Row="0"/>
+                            <TextBlock x:Name="RunPatientName" Text="..." Grid.Row="0" Grid.Column="1" Margin="10,0,0,0"/>
+
+                            <TextBlock Text="Edad:" FontWeight="SemiBold" Grid.Row="1"/>
+                            <TextBlock x:Name="RunPatientAge" Text="..." Grid.Row="1" Grid.Column="1" Margin="10,0,0,0"/>
+
+                            <TextBlock Text="Fecha Examen:" FontWeight="SemiBold" Grid.Row="2"/>
+                            <TextBlock x:Name="RunDate" Text="..." Grid.Row="2" Grid.Column="1" Margin="10,0,0,0"/>
+
+                            <TextBlock Text="Antecedentes:" FontWeight="SemiBold" Grid.Row="3"/>
+                            <TextBlock x:Name="RunHistory" Text="..." Grid.Row="3" Grid.Column="1" Margin="10,0,0,0" TextWrapping="Wrap"/>
+                        </Grid>
+                    </Border>
+
+                    <TextBlock Text="AGUDEZA VISUAL Y REFRACCIÓN" FontWeight="Bold" Foreground="#003A70" Margin="0,25,0,5"/>
+                    <Border BorderBrush="Black" BorderThickness="1">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1.5*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="35"/>
+                                <RowDefinition Height="35"/>
+                                <RowDefinition Height="35"/>
+                            </Grid.RowDefinitions>
+
+                            <Border Grid.Row="0" Grid.Column="0" Background="#EFEFEF" BorderBrush="Black" BorderThickness="0,0,1,1">
+                                <TextBlock Text="OJO" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold"/>
+                            </Border>
+                            <Border Grid.Row="0" Grid.Column="1" Background="#EFEFEF" BorderBrush="Black" BorderThickness="0,0,1,1">
+                                <TextBlock Text="ESFERA" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold"/>
+                            </Border>
+                            <Border Grid.Row="0" Grid.Column="2" Background="#EFEFEF" BorderBrush="Black" BorderThickness="0,0,1,1">
+                                <TextBlock Text="CILINDRO" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold"/>
+                            </Border>
+                            <Border Grid.Row="0" Grid.Column="3" Background="#EFEFEF" BorderBrush="Black" BorderThickness="0,0,1,1">
+                                <TextBlock Text="EJE" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold"/>
+                            </Border>
+                            <Border Grid.Row="0" Grid.Column="4" Background="#EFEFEF" BorderBrush="Black" BorderThickness="0,0,1,1">
+                                <TextBlock Text="ADD" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold"/>
+                            </Border>
+                            <Border Grid.Row="0" Grid.Column="5" Background="#EFEFEF" BorderBrush="Black" BorderThickness="0,0,0,1">
+                                <TextBlock Text="A.V." VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold"/>
+                            </Border>
+
+                            <Border Grid.Row="1" Grid.Column="0" BorderBrush="Black" BorderThickness="0,0,1,1">
+                                <TextBlock Text="OD (Derecho)" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold"/>
+                            </Border>
+                            <Border Grid.Row="1" Grid.Column="1" BorderBrush="Black" BorderThickness="0,0,1,1">
+                                <TextBlock x:Name="TxtSphOD" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Border>
+                            <Border Grid.Row="1" Grid.Column="2" BorderBrush="Black" BorderThickness="0,0,1,1">
+                                <TextBlock x:Name="TxtCylOD" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Border>
+                            <Border Grid.Row="1" Grid.Column="3" BorderBrush="Black" BorderThickness="0,0,1,1">
+                                <TextBlock x:Name="TxtAxisOD" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Border>
+                            <Border Grid.Row="1" Grid.Column="4" BorderBrush="Black" BorderThickness="0,0,1,1">
+                                <TextBlock x:Name="TxtAddOD" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Border>
+                            <Border Grid.Row="1" Grid.Column="5" BorderBrush="Black" BorderThickness="0,0,0,1">
+                                <TextBlock x:Name="TxtAvOD" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Border>
+
+                            <Border Grid.Row="2" Grid.Column="0" BorderBrush="Black" BorderThickness="0,0,1,0">
+                                <TextBlock Text="OI (Izquierdo)" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold"/>
+                            </Border>
+                            <Border Grid.Row="2" Grid.Column="1" BorderBrush="Black" BorderThickness="0,0,1,0">
+                                <TextBlock x:Name="TxtSphOI" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Border>
+                            <Border Grid.Row="2" Grid.Column="2" BorderBrush="Black" BorderThickness="0,0,1,0">
+                                <TextBlock x:Name="TxtCylOI" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Border>
+                            <Border Grid.Row="2" Grid.Column="3" BorderBrush="Black" BorderThickness="0,0,1,0">
+                                <TextBlock x:Name="TxtAxisOI" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Border>
+                            <Border Grid.Row="2" Grid.Column="4" BorderBrush="Black" BorderThickness="0,0,1,0">
+                                <TextBlock x:Name="TxtAddOI" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Border>
+                            <Border Grid.Row="2" Grid.Column="5">
+                                <TextBlock x:Name="TxtAvOI" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Border>
+                        </Grid>
+                    </Border>
+
+                    <StackPanel Margin="0,25,0,0" Spacing="5">
+                        <TextBlock Text="DIAGNÓSTICO:" FontWeight="Bold" TextDecorations="Underline"/>
+                        <TextBlock x:Name="TxtDiag" TextWrapping="Wrap" MinHeight="40"/>
+                    </StackPanel>
+
+                    <StackPanel Margin="0,15,0,0" Spacing="5">
+                        <TextBlock Text="RECOMENDACIONES:" FontWeight="Bold" TextDecorations="Underline"/>
+                        <TextBlock x:Name="TxtRec" TextWrapping="Wrap" MinHeight="40"/>
+                    </StackPanel>
+
+                    <StackPanel HorizontalAlignment="Center" Margin="0,80,0,0" Spacing="4">
+                        <Border BorderBrush="Black" BorderThickness="0,0,0,1" Width="250" Margin="0,0,0,5"/>
+                        <TextBlock x:Name="RunDoctorName" Text="Firma" HorizontalAlignment="Center" FontWeight="Bold"/>
+                        <TextBlock x:Name="RunDoctorSpecialty" Text="Especialidad" HorizontalAlignment="Center" FontSize="12"/>
+                        <TextBlock x:Name="RunDoctorLicense" Text="Reg..." HorizontalAlignment="Center" FontSize="11" Foreground="Gray"/>
+                    </StackPanel>
+
+                </StackPanel>
+            </Grid>
+        </ScrollViewer>
+    </Grid>
+</Window>

@@ -1,0 +1,137 @@
+<Page
+    x:Class="OpticaPro.Views.CertificatesPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="using:OpticaPro.Models"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="350"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Border Grid.Column="0" Background="{ThemeResource LayerFillColorDefaultBrush}" BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="0,0,1,0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0" Padding="16" Spacing="12">
+                    <TextBlock Text="Lista de Pacientes" Style="{StaticResource SubtitleTextBlockStyle}"/>
+                    <AutoSuggestBox x:Name="SearchBox" PlaceholderText="Buscar..." QueryIcon="Find" TextChanged="SearchBox_TextChanged"/>
+                </StackPanel>
+                <ListView x:Name="PatientsList" Grid.Row="1" SelectionMode="Single" SelectionChanged="PatientsList_SelectionChanged" Padding="12,0">
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:DataType="models:Patient">
+                            <Grid Padding="10" CornerRadius="8">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <PersonPicture Initials="{x:Bind Initials}" Height="40" Margin="0,0,12,0"/>
+                                <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                    <TextBlock Text="{x:Bind FullName}" FontWeight="SemiBold"/>
+                                    <TextBlock Text="{x:Bind Dni}" FontSize="11" Foreground="Gray"/>
+                                </StackPanel>
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Grid>
+        </Border>
+
+        <ScrollViewer Grid.Column="1" Padding="40">
+            <StackPanel Spacing="24" MaxWidth="950" HorizontalAlignment="Left">
+
+                <StackPanel Spacing="4">
+                    <TextBlock Text="Generar Certificado Visual" Style="{StaticResource TitleTextBlockStyle}"/>
+                    <TextBlock Text="Selecciona un paciente para cargar sus datos." Foreground="Gray"/>
+                </StackPanel>
+
+                <InfoBar x:Name="InfoAutoFill" IsOpen="False" Severity="Success" Title="Receta Cargada" Message="Se cargaron los datos desde la base de datos." Margin="0,0,0,10"/>
+
+                <ComboBox x:Name="CmbExams" 
+                          Header="Seleccionar Historial de Recetas" 
+                          PlaceholderText="Selecciona una fecha..."
+                          HorizontalAlignment="Stretch"
+                          DisplayMemberPath="Date" 
+                          SelectionChanged="CmbExams_SelectionChanged"/>
+
+                <Grid ColumnSpacing="20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox x:Name="TxtPatientName" Header="Nombre del Paciente" IsReadOnly="True" PlaceholderText="Seleccione de la lista..."/>
+
+                    <Grid Grid.Column="1" ColumnSpacing="15">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="2*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox x:Name="TxtAge" Header="Edad" PlaceholderText="Ej. 25 años"/>
+                        <CalendarDatePicker x:Name="PickDate" Grid.Column="1" Header="Fecha Emisión" HorizontalAlignment="Stretch" Language="es-ES"/>
+                    </Grid>
+                </Grid>
+
+                <TextBox x:Name="TxtHistory" Header="Antecedentes" PlaceholderText="Ej. Ninguno, Diabetes..."/>
+
+                <MenuFlyoutSeparator/>
+                <TextBlock Text="Valores Refractivos" FontWeight="Bold" Foreground="#0078D7"/>
+
+                <Grid ColumnSpacing="15" RowSpacing="15">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Text="OD" VerticalAlignment="Center" FontWeight="Bold" FontSize="16" Foreground="#0078D7"/>
+                    <TextBox x:Name="TxtSphereOd" Grid.Column="1" Header="Esfera" PlaceholderText="0.00"/>
+                    <TextBox x:Name="TxtCylOd" Grid.Column="2" Header="Cilindro" PlaceholderText="0.00"/>
+                    <TextBox x:Name="TxtAxisOd" Grid.Column="3" Header="Eje" PlaceholderText="0°"/>
+                    <TextBox x:Name="TxtAddOd" Grid.Column="4" Header="Add" PlaceholderText="+0.00"/>
+                    <TextBox x:Name="TxtAvOd" Grid.Column="5" Header="A.V." PlaceholderText="20/20"/>
+
+                    <TextBlock Text="OI" Grid.Row="1" VerticalAlignment="Center" FontWeight="Bold" FontSize="16" Foreground="#4CAF50"/>
+                    <TextBox x:Name="TxtSphereOi" Grid.Row="1" Grid.Column="1" PlaceholderText="0.00"/>
+                    <TextBox x:Name="TxtCylOi" Grid.Row="1" Grid.Column="2" PlaceholderText="0.00"/>
+                    <TextBox x:Name="TxtAxisOi" Grid.Row="1" Grid.Column="3" PlaceholderText="0°"/>
+                    <TextBox x:Name="TxtAddOi" Grid.Row="1" Grid.Column="4" PlaceholderText="+0.00"/>
+                    <TextBox x:Name="TxtAvOi" Grid.Row="1" Grid.Column="5" PlaceholderText="20/20"/>
+                </Grid>
+
+                <Grid ColumnSpacing="20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox x:Name="TxtDiagnostico" Header="Diagnóstico" Height="80" AcceptsReturn="True"/>
+                    <TextBox x:Name="TxtRecomendacion" Grid.Column="1" Header="Recomendaciones" Height="80" AcceptsReturn="True"/>
+                </Grid>
+
+                <StackPanel Orientation="Horizontal" Spacing="20" Margin="0,20,0,0" HorizontalAlignment="Right">
+                    <Button Click="SaveOnly_Click" Content="Solo Guardar" Height="50" Width="150"/>
+                    <Button Click="Preview_Click" Style="{StaticResource AccentButtonStyle}" Height="50" Width="220">
+                        <StackPanel Orientation="Horizontal" Spacing="10">
+                            <FontIcon Glyph="&#xE749;"/>
+                            <TextBlock Text="GENERAR CERTIFICADO" FontWeight="Bold"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Page>

@@ -1,0 +1,98 @@
+<Page
+    x:Class="OpticaPro.Views.AccountPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel MaxWidth="650" HorizontalAlignment="Center" Margin="0,40,0,40" Spacing="30">
+
+            <StackPanel Spacing="4">
+                <TextBlock Text="Mi Perfil" Style="{StaticResource TitleTextBlockStyle}" FontWeight="Bold"/>
+                <TextBlock Text="Administra tu información personal y seguridad." 
+                           Style="{StaticResource BodyTextBlockStyle}" Opacity="0.6"/>
+            </StackPanel>
+
+            <Grid CornerRadius="12" Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                  BorderThickness="1" BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                  Padding="30">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Orientation="Horizontal" Spacing="12" Margin="0,0,0,24">
+                    <FontIcon Glyph="&#xE77B;" FontSize="20" Foreground="{ThemeResource SystemControlForegroundAccentBrush}"/>
+                    <TextBlock Text="Información Pública" Style="{StaticResource SubtitleTextBlockStyle}"/>
+                </StackPanel>
+
+                <StackPanel Grid.Row="1" Spacing="16" HorizontalAlignment="Center">
+                    <Grid>
+                        <PersonPicture x:Name="ProfilePicPreview" Height="120" Width="120" />
+
+                        <Button VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,-10,0"
+                                CornerRadius="20" Width="40" Height="40" Padding="0"
+                                Background="{ThemeResource SystemControlBackgroundAccentBrush}"
+                                BorderBrush="{ThemeResource SystemControlBackgroundChromeWhiteBrush}" BorderThickness="2"
+                                Click="BtnChangePhoto_Click" ToolTipService.ToolTip="Cambiar Foto">
+                            <FontIcon Glyph="&#xE722;" Foreground="White" FontSize="16"/>
+                        </Button>
+                    </Grid>
+                    <TextBlock Text="Haz clic en la cámara para cambiar tu foto" 
+                               FontSize="12" Opacity="0.5" HorizontalAlignment="Center"/>
+                </StackPanel>
+
+                <StackPanel Grid.Row="2" Margin="0,30,0,0" Spacing="16">
+                    <TextBox x:Name="TxtUserNameInput" Header="Nombre de Usuario (Visible en el menú)" 
+                             PlaceholderText="Ej. Dra. Heidy" Padding="10" CornerRadius="4"/>
+
+                    <Button x:Name="BtnSaveProfile" Content="Guardar Cambios de Perfil" 
+                            Style="{StaticResource AccentButtonStyle}" HorizontalAlignment="Right"
+                            Click="BtnSaveProfile_Click"/>
+                </StackPanel>
+            </Grid>
+
+            <Grid CornerRadius="12" Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                  BorderThickness="1" BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                  Padding="30">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Orientation="Horizontal" Spacing="12" Margin="0,0,0,24">
+                    <FontIcon Glyph="&#xE72E;" FontSize="20" Foreground="{ThemeResource SystemControlForegroundAccentBrush}"/>
+                    <TextBlock Text="Seguridad y Contraseña" Style="{StaticResource SubtitleTextBlockStyle}"/>
+                </StackPanel>
+
+                <StackPanel Grid.Row="1" Spacing="16">
+                    <InfoBar Severity="Informational" IsOpen="True" IsClosable="False" 
+                             Message="Te recomendamos usar una contraseña segura." Margin="0,0,0,12"/>
+
+                    <PasswordBox x:Name="PbCurrent" Header="Contraseña Actual" 
+                                 PlaceholderText="Necesaria para autorizar el cambio" CornerRadius="4"/>
+
+                    <Grid Height="1" Background="{ThemeResource SystemControlForegroundBaseLowBrush}" Margin="0,8"/>
+
+                    <Grid ColumnSpacing="16">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <PasswordBox Grid.Column="0" x:Name="PbNew" Header="Nueva Contraseña" CornerRadius="4"/>
+                        <PasswordBox Grid.Column="1" x:Name="PbConfirm" Header="Confirmar Nueva" CornerRadius="4"/>
+                    </Grid>
+
+                    <Button x:Name="BtnChangePass" Content="Actualizar Contraseña" 
+                            HorizontalAlignment="Right" Margin="0,12,0,0"
+                            Click="BtnChangePass_Click"/>
+                </StackPanel>
+            </Grid>
+
+        </StackPanel>
+    </ScrollViewer>
+</Page>

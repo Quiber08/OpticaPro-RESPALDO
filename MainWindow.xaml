@@ -1,0 +1,97 @@
+<Window
+    x:Class="OpticaPro.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Title="OpticaPro">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+        <NavigationView x:Name="NavView" 
+                        PaneDisplayMode="Auto" 
+                        ItemInvoked="NavView_ItemInvoked"
+                        IsSettingsVisible="False"
+                        KeyboardAcceleratorPlacementMode="Hidden">
+
+            <NavigationView.PaneHeader>
+                <StackPanel Orientation="Horizontal" Spacing="12" Padding="24,24,24,12" VerticalAlignment="Center">
+                    <SymbolIcon Symbol="View" Foreground="#0078D4"/>
+                    <TextBlock Text="Men&#xFA; Principal" Style="{ThemeResource SubtitleTextBlockStyle}" VerticalAlignment="Center"/>
+                </StackPanel>
+            </NavigationView.PaneHeader>
+
+            <NavigationView.MenuItems>
+
+                <NavigationViewItemHeader Content="General" />
+                <NavigationViewItem Icon="Home" Content="Inicio" Tag="Dashboard" />
+
+                <NavigationViewItemHeader Content="Cl&#xED;nica" />
+                <NavigationViewItem Icon="Contact" Content="Pacientes" Tag="Patients" />
+
+                <NavigationViewItem Icon="Calendar" Content="Citas Programadas" Tag="AppointmentsPage"/>
+
+                <NavigationViewItem Icon="Document" Content="Recetas" Tag="Prescriptions" />
+
+                <NavigationViewItem Content="Certificados Visuales" Tag="Certificates">
+                    <NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xE952;" FontFamily="Segoe MDL2 Assets"/>
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+
+                <NavigationViewItem Icon="PreviewLink" Content="Optotipo Digital" Tag="Optotype" />
+
+                <NavigationViewItemHeader Content="Comercial" />
+
+                <NavigationViewItem Icon="List" Content="Control de Pedidos" Tag="Orders">
+                    <NavigationViewItem.InfoBadge>
+                        <InfoBadge x:Name="BadgeOrders" Value="0" Style="{ThemeResource AttentionValueInfoBadgeStyle}" Visibility="Collapsed"/>
+                    </NavigationViewItem.InfoBadge>
+                </NavigationViewItem>
+
+                <NavigationViewItem Icon="Shop" Content="Inventario" Tag="Inventory" />
+                <NavigationViewItem Icon="Message" Content="Marketing / WhatsApp" Tag="Marketing" />
+
+                <NavigationViewItemHeader Content="Administraci&#xF3;n" />
+                <NavigationViewItem Icon="ShowBcc" Content="Reportes Financieros" Tag="Financials" />
+                <NavigationViewItem Icon="Permissions" Content="Usuarios y Accesos" Tag="Users" />
+
+                <NavigationViewItem Content="Soporte T&#xE9;cnico" Tag="Support">
+                    <NavigationViewItem.Icon>
+                        <SymbolIcon Symbol="Help" Foreground="#0078D4"/>
+                    </NavigationViewItem.Icon>
+                    <NavigationViewItem.InfoBadge>
+                        <InfoBadge x:Name="BadgeSupport" Value="0" Style="{ThemeResource InformationalValueInfoBadgeStyle}" Visibility="Collapsed"/>
+                    </NavigationViewItem.InfoBadge>
+                </NavigationViewItem>
+
+            </NavigationView.MenuItems>
+
+            <NavigationView.FooterMenuItems>
+
+                <NavigationViewItem Tag="Logout" Content="Cerrar Sesi&#xF3;n" SelectsOnInvoked="False" Foreground="#E81123">
+                    <NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xE7E8;" FontFamily="Segoe MDL2 Assets"/>
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+
+                <NavigationViewItemSeparator/>
+
+                <NavigationViewItem Tag="Settings" Tapped="Profile_Tapped" SelectsOnInvoked="False">
+                    <StackPanel Orientation="Horizontal" Spacing="12">
+                        <PersonPicture x:Name="SidebarProfilePic" x:FieldModifier="public" DisplayName="Quiber" Height="36" Width="36" Initials="QB"/>
+                        <StackPanel VerticalAlignment="Center">
+                            <TextBlock x:Name="SidebarProfileName" x:FieldModifier="public" Text="Quiber" FontWeight="SemiBold" FontSize="14"/>
+                            <TextBlock Text="Cuenta OpticaPro" FontSize="11" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </NavigationViewItem>
+
+            </NavigationView.FooterMenuItems>
+
+            <Frame x:Name="ContentFrame" />
+
+        </NavigationView>
+    </Grid>
+</Window>

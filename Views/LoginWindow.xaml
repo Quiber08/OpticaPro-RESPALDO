@@ -1,0 +1,352 @@
+<Window
+    x:Class="OpticaPro.Views.LoginWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="using:OpticaPro.Views"
+    mc:Ignorable="d"
+    Title="Acceso Seguro - OpticaPro">
+
+    <Window.SystemBackdrop>
+        <MicaBackdrop Kind="Base"/>
+    </Window.SystemBackdrop>
+
+    <Grid>
+        <Grid.Resources>
+            <Color x:Key="ColorPrimary">#0066FF</Color>
+            <Color x:Key="ColorPrimaryHover">#0052CC</Color>
+            <Color x:Key="ColorPrimaryPressed">#003D99</Color>
+            <Color x:Key="ColorDarkBase">#0F1115</Color>
+            <Color x:Key="ColorDarkSurface">#1A1D24</Color>
+            <Color x:Key="ColorDarkCard">#252932</Color>
+            <Color x:Key="ColorBorder">#3A4050</Color>
+            <Color x:Key="ColorTextMuted">#A0A8B8</Color>
+
+            <SolidColorBrush x:Key="BrushPrimary" Color="{StaticResource ColorPrimary}"/>
+            <SolidColorBrush x:Key="BrushPrimaryHover" Color="{StaticResource ColorPrimaryHover}"/>
+            <SolidColorBrush x:Key="BrushPrimaryPressed" Color="{StaticResource ColorPrimaryPressed}"/>
+            <SolidColorBrush x:Key="BrushSurface" Color="{StaticResource ColorDarkSurface}"/>
+            <SolidColorBrush x:Key="BrushCard" Color="{StaticResource ColorDarkCard}"/>
+            <SolidColorBrush x:Key="BrushBorder" Color="{StaticResource ColorBorder}"/>
+            <SolidColorBrush x:Key="BrushTextMuted" Color="{StaticResource ColorTextMuted}"/>
+
+            <SolidColorBrush x:Key="TextControlPlaceholderForeground" Color="#808895"/>
+            <SolidColorBrush x:Key="TextControlPlaceholderForegroundFocused" Color="#A0A8B8"/>
+
+            <Style x:Key="PremiumButtonStyle" TargetType="Button">
+                <Setter Property="Background" Value="{StaticResource BrushPrimary}"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="FontSize" Value="15"/>
+                <Setter Property="FontWeight" Value="SemiBold"/>
+                <Setter Property="Padding" Value="20,12"/>
+                <Setter Property="CornerRadius" Value="8"/>
+                <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Grid x:Name="RootGrid" Background="Transparent">
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Normal"/>
+                                        <VisualState x:Name="PointerOver">
+                                            <Storyboard>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentBorder" Storyboard.TargetProperty="Background">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource BrushPrimaryHover}"/>
+                                                </ObjectAnimationUsingKeyFrames>
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="Pressed">
+                                            <Storyboard>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentBorder" Storyboard.TargetProperty="Background">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource BrushPrimaryPressed}"/>
+                                                </ObjectAnimationUsingKeyFrames>
+                                                <DoubleAnimation Storyboard.TargetName="RootGrid" Storyboard.TargetProperty="Opacity" To="0.9" Duration="0"/>
+                                            </Storyboard>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+                                <Border x:Name="ContentBorder" Background="{TemplateBinding Background}" CornerRadius="{TemplateBinding CornerRadius}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                                    <ContentPresenter x:Name="ContentPresenter" Content="{TemplateBinding Content}" ContentTransitions="{TemplateBinding ContentTransitions}" ContentTemplate="{TemplateBinding ContentTemplate}" Padding="{TemplateBinding Padding}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" AutomationProperties.AccessibilityView="Raw"/>
+                                </Border>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="UserCardButtonStyle" TargetType="Button">
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="Padding" Value="0"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Grid>
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Normal"/>
+                                        <VisualState x:Name="PointerOver">
+                                            <Storyboard>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="CardBorder" Storyboard.TargetProperty="BorderBrush">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource BrushPrimary}"/>
+                                                </ObjectAnimationUsingKeyFrames>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="CardBorder" Storyboard.TargetProperty="Background">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="#2A2E38"/>
+                                                </ObjectAnimationUsingKeyFrames>
+                                            </Storyboard>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+                                <Border x:Name="CardBorder" Width="140" Height="170" Background="{StaticResource BrushCard}" CornerRadius="12" BorderThickness="1" BorderBrush="{StaticResource BrushBorder}">
+                                    <ContentPresenter/>
+                                </Border>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="ModernTextBoxStyle" TargetType="TextBox">
+                <Setter Property="Background" Value="{StaticResource BrushCard}"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="BorderBrush" Value="{StaticResource BrushBorder}"/>
+                <Setter Property="Padding" Value="12,10"/>
+                <Setter Property="CornerRadius" Value="8"/>
+                <Setter Property="FontSize" Value="14"/>
+            </Style>
+
+            <Style x:Key="ModernPasswordBoxStyle" TargetType="PasswordBox">
+                <Setter Property="Background" Value="{StaticResource BrushCard}"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="BorderBrush" Value="{StaticResource BrushBorder}"/>
+                <Setter Property="Padding" Value="12,10"/>
+                <Setter Property="CornerRadius" Value="8"/>
+                <Setter Property="FontSize" Value="14"/>
+            </Style>
+        </Grid.Resources>
+
+        <Grid Background="{StaticResource BrushSurface}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1.2*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="0">
+                <Grid.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="#000000" Offset="0"/>
+                        <GradientStop Color="#081020" Offset="0.5"/>
+                        <GradientStop Color="#001530" Offset="1"/>
+                    </LinearGradientBrush>
+                </Grid.Background>
+
+                <Grid Opacity="0.4" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,-200,-200,0">
+                    <Ellipse Width="600" Height="600">
+                        <Ellipse.Fill>
+                            <RadialGradientBrush>
+                                <GradientStop Color="#0066FF" Offset="0"/>
+                                <GradientStop Color="Transparent" Offset="1"/>
+                            </RadialGradientBrush>
+                        </Ellipse.Fill>
+                    </Ellipse>
+                </Grid>
+
+                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="40">
+                    <Grid HorizontalAlignment="Center">
+                        <Ellipse Width="140" Height="140" Stroke="#2A3040" StrokeThickness="1"/>
+                        <Ellipse Width="120" Height="120" Fill="#0F1525"/>
+
+                        <FontIcon Glyph="&#xE722;" FontSize="60" Foreground="#0099FF" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+                        <Ellipse Width="140" Height="140" Stroke="#0066FF" StrokeThickness="2" Opacity="0.1"/>
+                    </Grid>
+
+                    <StackPanel Spacing="5">
+                        <TextBlock Text="OPTICAPRO" FontSize="56" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center" CharacterSpacing="50"/>
+
+                        <TextBlock Text="SYSTEM V1.5.1" FontSize="16" Foreground="#0099FF" HorizontalAlignment="Center" CharacterSpacing="300" FontWeight="SemiBold"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Spacing="20" HorizontalAlignment="Center" Margin="0,30,0,0">
+                        <Border Background="#10FFFFFF" CornerRadius="20" Padding="15,8" BorderBrush="#20FFFFFF" BorderThickness="1">
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <FontIcon Glyph="&#xE72E;" Foreground="#DDDDDD" FontSize="14"/>
+                                <TextBlock Text="Seguro" Foreground="#DDDDDD" FontSize="12"/>
+                            </StackPanel>
+                        </Border>
+                        <Border Background="#10FFFFFF" CornerRadius="20" Padding="15,8" BorderBrush="#20FFFFFF" BorderThickness="1">
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <FontIcon Glyph="&#xE9F5;" Foreground="#DDDDDD" FontSize="14"/>
+                                <TextBlock Text="R&#225;pido" Foreground="#DDDDDD" FontSize="12"/>
+                            </StackPanel>
+                        </Border>
+                        <Border Background="#10FFFFFF" CornerRadius="20" Padding="15,8" BorderBrush="#20FFFFFF" BorderThickness="1">
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <FontIcon Glyph="&#xE753;" Foreground="#DDDDDD" FontSize="14"/>
+                                <TextBlock Text="Nube" Foreground="#DDDDDD" FontSize="12"/>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                </StackPanel>
+
+                <TextBlock Text="&#169; 2026 OpticaPro Systems." VerticalAlignment="Bottom" HorizontalAlignment="Center" Foreground="#6B7280" FontSize="11" Margin="40"/>
+            </Grid>
+
+            <Grid Grid.Column="1" Background="#121418">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Border Height="4" VerticalAlignment="Top" Background="{StaticResource BrushPrimary}" Opacity="1"/>
+
+                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Width="460" Spacing="0" Margin="0,50">
+
+                        <StackPanel.ChildrenTransitions>
+                            <TransitionCollection>
+                                <EntranceThemeTransition FromVerticalOffset="20" IsStaggeringEnabled="True"/>
+                            </TransitionCollection>
+                        </StackPanel.ChildrenTransitions>
+
+                        <StackPanel Margin="0,0,0,40" Spacing="8">
+                            <TextBlock x:Name="LblWelcome" Text="&#161;Bienvenido de nuevo!" FontSize="32" FontWeight="Bold" Foreground="White" TextWrapping="Wrap"/>
+                            <TextBlock x:Name="LblInstruction" Text="Selecciona tu usuario para acceder al panel." FontSize="16" Foreground="{StaticResource BrushTextMuted}" TextWrapping="Wrap"/>
+                        </StackPanel>
+
+                        <Border x:Name="PanelLicense" Visibility="Collapsed" Background="{StaticResource BrushCard}" CornerRadius="12" BorderThickness="1" BorderBrush="{StaticResource BrushBorder}" Padding="30" Margin="0,0,0,20">
+                            <StackPanel Spacing="25">
+                                <StackPanel Orientation="Horizontal" Spacing="15">
+                                    <Border Width="50" Height="50" CornerRadius="12" Background="#26FFB900">
+                                        <FontIcon Glyph="&#xE898;" Foreground="#FFB900" FontSize="22"/>
+                                    </Border>
+                                    <StackPanel VerticalAlignment="Center">
+                                        <TextBlock Text="Activaci&#243;n Requerida" FontWeight="SemiBold" Foreground="White" FontSize="16"/>
+                                        <TextBlock Text="Introduce tu clave de producto." Foreground="{StaticResource BrushTextMuted}" FontSize="13"/>
+                                    </StackPanel>
+                                </StackPanel>
+                                <StackPanel Spacing="8">
+                                    <TextBlock Text="CLAVE DE PRODUCTO" FontSize="11" FontWeight="Bold" Foreground="#667085"/>
+                                    <TextBox x:Name="TxtLicense" PlaceholderText="XXXX-XXXX-XXXX-XXXX" Style="{StaticResource ModernTextBoxStyle}" FontFamily="Consolas" CharacterSpacing="50"/>
+                                </StackPanel>
+                                <Button Content="Validar Licencia" Click="ValidateLicense_Click" Style="{StaticResource PremiumButtonStyle}"/>
+                            </StackPanel>
+                        </Border>
+
+                        <Border x:Name="PanelRegister" Visibility="Collapsed" Background="{StaticResource BrushCard}" CornerRadius="12" BorderThickness="1" BorderBrush="{StaticResource BrushBorder}" Padding="30" Margin="0,0,0,20">
+                            <StackPanel Spacing="20">
+                                <StackPanel Orientation="Horizontal" Spacing="15">
+                                    <Border Width="50" Height="50" CornerRadius="12" Background="#2600CC66">
+                                        <FontIcon Glyph="&#xE73A;" Foreground="#00CC66" FontSize="22"/>
+                                    </Border>
+                                    <StackPanel VerticalAlignment="Center">
+                                        <TextBlock Text="Configuraci&#243;n Inicial" FontWeight="SemiBold" Foreground="White" FontSize="16"/>
+                                        <TextBlock Text="Crea la cuenta del administrador." Foreground="{StaticResource BrushTextMuted}" FontSize="13"/>
+                                    </StackPanel>
+                                </StackPanel>
+                                <StackPanel Spacing="15">
+                                    <TextBox x:Name="TxtBusinessName" Header="Nombre del Negocio" PlaceholderText="Ej. &#211;ptica Visi&#243;n Plus" Style="{StaticResource ModernTextBoxStyle}"/>
+                                    <TextBox x:Name="TxtRegUser" Header="Usuario Admin" PlaceholderText="admin" Style="{StaticResource ModernTextBoxStyle}"/>
+                                    <PasswordBox x:Name="TxtRegPass" FlowDirection="LeftToRight" Header="Contrase&#241;a Maestra" Style="{StaticResource ModernPasswordBoxStyle}"/>
+                                </StackPanel>
+                                <Button Content="Finalizar Registro" Click="Register_Click" Background="#00CC66" Style="{StaticResource PremiumButtonStyle}" Margin="0,10,0,0"/>
+                            </StackPanel>
+                        </Border>
+
+                        <Border x:Name="PanelRecovery" Visibility="Collapsed" Background="{StaticResource BrushCard}" CornerRadius="12" BorderThickness="1" BorderBrush="{StaticResource BrushBorder}" Padding="30" Margin="0,0,0,20">
+                            <StackPanel Spacing="20">
+                                <StackPanel Orientation="Horizontal" Spacing="15">
+                                    <Border Width="50" Height="50" CornerRadius="12" Background="#26FF4D4D">
+                                        <FontIcon Glyph="&#xE779;" Foreground="#FF4D4D" FontSize="22"/>
+                                    </Border>
+                                    <StackPanel VerticalAlignment="Center">
+                                        <TextBlock Text="Recuperar Contrase&#241;a" FontWeight="SemiBold" Foreground="White" FontSize="16"/>
+                                        <TextBlock Text="Usa tu licencia para restablecer." Foreground="{StaticResource BrushTextMuted}" FontSize="13"/>
+                                    </StackPanel>
+                                </StackPanel>
+                                <StackPanel Spacing="15">
+                                    <TextBox x:Name="TxtRecoveryLicense" Header="Licencia del Producto" PlaceholderText="XXXX-XXXX-XXXX-XXXX" Style="{StaticResource ModernTextBoxStyle}" FontFamily="Consolas"/>
+                                    <PasswordBox x:Name="TxtNewPass" FlowDirection="LeftToRight" Header="Nueva Contrase&#241;a" Style="{StaticResource ModernPasswordBoxStyle}"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Spacing="10" Margin="0,10,0,0">
+                                    <Button Content="Cancelar" Click="BackToLogin_Click" Background="Transparent" BorderBrush="{StaticResource BrushBorder}" BorderThickness="1" CornerRadius="8" Padding="15,10" Foreground="White"/>
+                                    <Button Content="Restablecer" Click="ConfirmRecovery_Click" Style="{StaticResource PremiumButtonStyle}" HorizontalAlignment="Stretch" Width="200"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+
+                        <GridView x:Name="UserSelectionList" Visibility="Visible" SelectionMode="None" HorizontalAlignment="Center" Margin="-10,0">
+                            <GridView.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <ItemsWrapGrid Orientation="Horizontal" MaximumRowsOrColumns="3"/>
+                                </ItemsPanelTemplate>
+                            </GridView.ItemsPanel>
+                            <GridView.ItemTemplate>
+                                <DataTemplate x:DataType="local:UserDisplayModel">
+                                    <Button Click="UserItem_Click" Tag="{x:Bind}" Margin="8" Style="{StaticResource UserCardButtonStyle}">
+                                        <StackPanel VerticalAlignment="Center" Spacing="12">
+                                            <PersonPicture DisplayName="{x:Bind FullName}" Height="70" Width="70"/>
+                                            <StackPanel>
+                                                <TextBlock Text="{x:Bind FullName}" Foreground="White" FontWeight="SemiBold" HorizontalAlignment="Center" TextTrimming="CharacterEllipsis" FontSize="13" Margin="8,0" TextAlignment="Center"/>
+                                                <TextBlock Text="{x:Bind Role}" Foreground="{StaticResource BrushTextMuted}" FontSize="11" HorizontalAlignment="Center" TextTrimming="CharacterEllipsis" Margin="0,2,0,0"/>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </Button>
+                                </DataTemplate>
+                            </GridView.ItemTemplate>
+                        </GridView>
+
+                        <StackPanel x:Name="PanelPassword" Visibility="Collapsed" Spacing="30">
+                            <StackPanel.ChildrenTransitions>
+                                <TransitionCollection>
+                                    <EntranceThemeTransition FromVerticalOffset="30"/>
+                                </TransitionCollection>
+                            </StackPanel.ChildrenTransitions>
+
+                            <Border Background="{StaticResource BrushCard}" CornerRadius="12" Padding="15" BorderThickness="1" BorderBrush="{StaticResource BrushBorder}">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <PersonPicture x:Name="SelectedUserPic" Height="50" Width="50" Margin="0,0,15,0"/>
+                                    <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                        <TextBlock Text="Ingresando como:" FontSize="12" Foreground="{StaticResource BrushTextMuted}"/>
+                                        <TextBlock x:Name="SelectedUserName" Text="Nombre Usuario" FontWeight="Bold" Foreground="White" FontSize="16"/>
+                                    </StackPanel>
+                                    <Button Grid.Column="2" Click="BackToUsers_Click" Background="Transparent" BorderThickness="0" Padding="8">
+                                        <StackPanel Orientation="Horizontal" Spacing="5">
+                                            <TextBlock Text="Cambiar" FontSize="12" Foreground="#FF4D4D" VerticalAlignment="Center"/>
+                                            <FontIcon Glyph="&#xE711;" FontSize="12" Foreground="#FF4D4D"/>
+                                        </StackPanel>
+                                    </Button>
+                                </Grid>
+                            </Border>
+
+                            <StackPanel Spacing="10">
+                                <Grid>
+                                    <TextBlock Text="CONTRASE&#209;A" FontSize="11" FontWeight="Bold" Foreground="#667085" VerticalAlignment="Center"/>
+                                    <HyperlinkButton Content="&#191;Olvidaste tu contrase&#241;a?" Click="ForgotPassword_Click" HorizontalAlignment="Right" Foreground="#0099FF" FontSize="12" Margin="0,-5,0,0"/>
+                                </Grid>
+                                <PasswordBox x:Name="TxtLoginPass" PlaceholderText="********" Style="{StaticResource ModernPasswordBoxStyle}" Height="50" FontSize="18" FlowDirection="LeftToRight" KeyDown="TxtLoginPass_KeyDown"/>
+                            </StackPanel>
+
+                            <Button Content="INICIAR SESI&#211;N" Click="Login_Click" Style="{StaticResource PremiumButtonStyle}" Height="55" FontSize="16" Translation="0,0,8">
+                                <Button.Shadow>
+                                    <ThemeShadow/>
+                                </Button.Shadow>
+                            </Button>
+                        </StackPanel>
+
+                        <TextBlock x:Name="LblError" Foreground="#FF6B6B" FontSize="14" Margin="0,25,0,0" TextWrapping="Wrap" HorizontalAlignment="Center" FontWeight="SemiBold" TextAlignment="Center"/>
+
+                    </StackPanel>
+                </ScrollViewer>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

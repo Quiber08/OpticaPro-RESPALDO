@@ -1,0 +1,160 @@
+<Page
+    x:Class="OpticaPro.Views.SettingsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <ScrollViewer>
+        <StackPanel Padding="24,40,40,40" HorizontalAlignment="Stretch" Spacing="24">
+
+            <TextBlock Text="Configuración" Style="{StaticResource TitleTextBlockStyle}"/>
+
+            <Grid Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" 
+                  CornerRadius="8" Padding="24"
+                  BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <PersonPicture x:Name="BigProfilePic" DisplayName="Quiber" Height="80" Width="80" Initials="QB"/>
+
+                <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="24,0,0,0" Spacing="4">
+                    <TextBlock x:Name="BigProfileName" Text="Juan" FontSize="24" FontWeight="SemiBold"/>
+                    <TextBlock Text="OpticaPro - Administrador" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+                    <HyperlinkButton Content="Gestionar cuenta (Foto y Nombre)" Click="EditAccount_Click" Margin="-12,0,0,0"/>
+                </StackPanel>
+            </Grid>
+
+            <TextBlock Text="Óptica y Profesional" Style="{StaticResource SubtitleTextBlockStyle}" Margin="0,10,0,0"/>
+
+            <StackPanel Spacing="8">
+                <Button HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" Padding="16" CornerRadius="8" 
+                        Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" 
+                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1"
+                        Click="EditClinic_Click">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <FontIcon Glyph="&#xE719;" FontSize="20" Foreground="{ThemeResource SystemAccentColor}"/>
+                        <StackPanel Grid.Column="1" Margin="16,0,0,0">
+                            <TextBlock Text="Información de la Clínica" FontWeight="SemiBold"/>
+                            <TextBlock Text="Nombre, dirección, teléfonos y logo" FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+                        </StackPanel>
+                        <FontIcon Grid.Column="2" Glyph="&#xE76C;" FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+                    </Grid>
+                </Button>
+
+                <Button HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" Padding="16" CornerRadius="8" 
+                        Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" 
+                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1"
+                        Click="EditProfessional_Click">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <FontIcon Glyph="&#xE8D4;" FontSize="20" Foreground="{ThemeResource SystemAccentColor}"/>
+                        <StackPanel Grid.Column="1" Margin="16,0,0,0">
+                            <TextBlock Text="Datos del Profesional" FontWeight="SemiBold"/>
+                            <TextBlock Text="Nombre del doctor, registro Senescyt y especialidad" FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+                        </StackPanel>
+                        <FontIcon Grid.Column="2" Glyph="&#xE76C;" FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+                    </Grid>
+                </Button>
+
+                <Button HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" Padding="16" CornerRadius="8" 
+                        Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" 
+                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1"
+                        Click="ManageUsers_Click">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <FontIcon Glyph="&#xE77B;" FontSize="20" Foreground="{ThemeResource SystemAccentColor}"/>
+                        <StackPanel Grid.Column="1" Margin="16,0,0,0">
+                            <TextBlock Text="Usuarios y Permisos" FontWeight="SemiBold"/>
+                            <TextBlock Text="Gestionar accesos al sistema" FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+                        </StackPanel>
+                        <FontIcon Grid.Column="2" Glyph="&#xE76C;" FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+                    </Grid>
+                </Button>
+            </StackPanel>
+
+            <TextBlock Text="Gestión de Datos" Style="{StaticResource SubtitleTextBlockStyle}" Margin="0,10,0,0"/>
+
+            <Button HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" Padding="16" CornerRadius="8" 
+                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" 
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1"
+                    Click="OpenBackup_Click">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <FontIcon Glyph="&#xE7F1;" FontSize="20" Foreground="#0078D7"/>
+                    <StackPanel Grid.Column="1" Margin="16,0,0,0">
+                        <TextBlock Text="Copia de Seguridad y Restauración" FontWeight="SemiBold"/>
+                        <TextBlock Text="Respaldo local, encriptado y recuperación" FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+                    </StackPanel>
+                    <FontIcon Grid.Column="2" Glyph="&#xE76C;" FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+                </Grid>
+            </Button>
+
+            <TextBlock Text="Apariencia y Sistema" Style="{StaticResource SubtitleTextBlockStyle}" Margin="0,10,0,0"/>
+            <StackPanel Spacing="8">
+                <Border Padding="16" CornerRadius="8" 
+                        Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" 
+                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <FontIcon Glyph="&#xE790;" FontSize="20" Foreground="{ThemeResource SystemAccentColor}"/>
+                        <StackPanel Grid.Column="1" Margin="16,0,0,0">
+                            <TextBlock Text="Tema de la aplicación" FontWeight="SemiBold"/>
+                            <TextBlock Text="Selecciona el modo claro u oscuro" FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+                        </StackPanel>
+
+                        <ComboBox x:Name="ThemeBox" Grid.Column="2" SelectionChanged="Theme_SelectionChanged" MinWidth="150">
+                            <ComboBoxItem Content="Claro"/>
+                            <ComboBoxItem Content="Oscuro"/>
+                            <ComboBoxItem Content="Sistema"/>
+                        </ComboBox>
+                    </Grid>
+                </Border>
+
+                <Border Padding="16" CornerRadius="8" 
+                        Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" 
+                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <FontIcon Glyph="&#xE946;" FontSize="20" Foreground="{ThemeResource SystemAccentColor}" VerticalAlignment="Top" Margin="0,4,0,0"/>
+                        <StackPanel Grid.Column="1" Margin="16,0,0,0" Spacing="4">
+                            <TextBlock Text="Acerca de OpticaPro" FontWeight="SemiBold"/>
+                            <TextBlock Text="Versión 1.5.1 - © 2026 OpticaPro" FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+                            <Button Content="Buscar actualizaciones" Margin="0,8,0,0" Click="CheckUpdates_Click" FontSize="12"/>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+            </StackPanel>
+
+        </StackPanel>
+    </ScrollViewer>
+</Page>

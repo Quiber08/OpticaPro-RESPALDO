@@ -1,0 +1,98 @@
+<Page
+    x:Class="OpticaPro.Views.AddPrescriptionPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <ScrollViewer>
+        <StackPanel Padding="24" MaxWidth="1000" HorizontalAlignment="Stretch" Spacing="24">
+
+            <StackPanel>
+                <TextBlock Text="Nueva Receta Oftalmológica" Style="{StaticResource TitleTextBlockStyle}"/>
+                <TextBlock Text="Ingresa los valores y genera el certificado visual." Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+            </StackPanel>
+
+            <Border Padding="20" CornerRadius="8" Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1">
+                <StackPanel Spacing="12">
+                    <TextBlock Text="Datos del Paciente" FontWeight="SemiBold"/>
+                    <Grid ColumnSpacing="16">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+                        <AutoSuggestBox x:Name="TxtPatientName" PlaceholderText="Buscar paciente por nombre..." QueryIcon="Find" Text="Juan Pérez"/>
+                        <TextBox Grid.Column="1" PlaceholderText="Edad" IsReadOnly="True" Text="35 años"/>
+                    </Grid>
+                </StackPanel>
+            </Border>
+
+            <Border Padding="20" CornerRadius="8" Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1">
+                <StackPanel Spacing="16">
+                    <TextBlock Text="Refracción (Medida)" FontWeight="SemiBold"/>
+
+                    <Grid RowSpacing="12" ColumnSpacing="12">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" MinWidth="40"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Column="1" Text="Esfera (Sph)" Foreground="{ThemeResource TextFillColorSecondaryBrush}" HorizontalAlignment="Center"/>
+                        <TextBlock Grid.Column="2" Text="Cilindro (Cyl)" Foreground="{ThemeResource TextFillColorSecondaryBrush}" HorizontalAlignment="Center"/>
+                        <TextBlock Grid.Column="3" Text="Eje (Axis)" Foreground="{ThemeResource TextFillColorSecondaryBrush}" HorizontalAlignment="Center"/>
+                        <TextBlock Grid.Column="4" Text="A.V." Foreground="{ThemeResource TextFillColorSecondaryBrush}" HorizontalAlignment="Center"/>
+
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="OD" VerticalAlignment="Center" FontWeight="Bold" Foreground="#0078D7"/>
+                        <TextBox x:Name="TxtOdSph" Grid.Row="1" Grid.Column="1" PlaceholderText="+0.00" HorizontalContentAlignment="Center"/>
+                        <TextBox x:Name="TxtOdCyl" Grid.Row="1" Grid.Column="2" PlaceholderText="-0.00" HorizontalContentAlignment="Center"/>
+                        <TextBox x:Name="TxtOdAxis" Grid.Row="1" Grid.Column="3" PlaceholderText="0°" HorizontalContentAlignment="Center"/>
+                        <TextBox x:Name="TxtOdAv" Grid.Row="1" Grid.Column="4" PlaceholderText="20/20" HorizontalContentAlignment="Center"/>
+
+                        <TextBlock Grid.Row="2" Grid.Column="0" Text="OI" VerticalAlignment="Center" FontWeight="Bold" Foreground="#0078D7"/>
+                        <TextBox x:Name="TxtOiSph" Grid.Row="2" Grid.Column="1" PlaceholderText="+0.00" HorizontalContentAlignment="Center"/>
+                        <TextBox x:Name="TxtOiCyl" Grid.Row="2" Grid.Column="2" PlaceholderText="-0.00" HorizontalContentAlignment="Center"/>
+                        <TextBox x:Name="TxtOiAxis" Grid.Row="2" Grid.Column="3" PlaceholderText="0°" HorizontalContentAlignment="Center"/>
+                        <TextBox x:Name="TxtOiAv" Grid.Row="2" Grid.Column="4" PlaceholderText="20/20" HorizontalContentAlignment="Center"/>
+
+                        <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="5" Orientation="Horizontal" Spacing="24" Margin="0,12,0,0">
+                            <TextBox x:Name="TxtAdd" Header="Adición (Add)" PlaceholderText="+0.00" Width="120"/>
+                            <TextBox x:Name="TxtDip" Header="DIP (mm)" PlaceholderText="60" Width="100"/>
+                        </StackPanel>
+                    </Grid>
+                </StackPanel>
+            </Border>
+
+            <Border Padding="20" CornerRadius="8" Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1">
+                <StackPanel Spacing="16">
+                    <TextBlock Text="Especificaciones y Notas" FontWeight="SemiBold"/>
+                    <TextBox x:Name="TxtNotes" Header="Observaciones" PlaceholderText="Ej: Uso permanente, antireflejo..." Height="80" TextWrapping="Wrap" AcceptsReturn="True"/>
+                </StackPanel>
+            </Border>
+
+            <StackPanel Orientation="Horizontal" Spacing="16" HorizontalAlignment="Right" Margin="0,0,0,40">
+                <Button Content="Cancelar" Click="Cancel_Click" Width="100"/>
+
+                <Button Click="PrintCertificate_Click" Style="{StaticResource AccentButtonStyle}">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <FontIcon Glyph="&#xE749;"/>
+                        <TextBlock Text="Generar Certificado"/>
+                    </StackPanel>
+                </Button>
+
+                <Button Content="Guardar Receta" Click="Save_Click" Style="{StaticResource AccentButtonStyle}"/>
+            </StackPanel>
+
+        </StackPanel>
+    </ScrollViewer>
+</Page>
